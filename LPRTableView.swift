@@ -56,15 +56,15 @@ class LPRTableView: UITableView {
 	
 	init(frame: CGRect, style: UITableViewStyle) {
 		super.init(frame: frame, style: style)
-		_initialize()
+		initialize()
 	}
 	
 	init(coder aDecoder: NSCoder!) {
 		super.init(coder: aDecoder)
-		_initialize()
+		initialize()
 	}
 	
-	func _initialize() {
+	func initialize() {
 		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
 		addGestureRecognizer(longPressGestureRecognizer)
 	}
@@ -285,25 +285,29 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		_initialize()
+		initialize()
 	}
 	
 	init(style: UITableViewStyle) {
 		super.init(style: style)
-		_initialize()
+		initialize()
 	}
 	
 	init(coder aDecoder: NSCoder!) {
 		super.init(coder: aDecoder)
-		_initialize()
+		initialize()
 	}
 	
-	func _initialize() {
+	func initialize() {
 		tableView = LPRTableView()
 		tableView.dataSource = self
 		tableView.delegate = self
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		registerClasses()
 		lprTableView.longPressReorderDelegate = self
+	}
+	
+	func registerClasses() {
+		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 	}
 	
 	func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {

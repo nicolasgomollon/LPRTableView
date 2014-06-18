@@ -40,7 +40,15 @@ func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPa
 func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 ```
 
-See the ReorderTest demo project included in this repository for a working example.
+See the ReorderTest demo project included in this repository for a working example of the project, including the code above.
+
+If you’re replacing `UITableViewController` with `LPRTableViewController` and are using a custom `UITableViewCell` subclass, then you must override `registerClasses()` and register the appropriate table view cell class(es) within this method. **Do not** call super within this method.
+
+```swift
+override func registerClasses() {
+	tableView.registerClass(MyCustomTableViewCell.self, forCellReuseIdentifier: "Cell")
+}
+```
 
 
 ## Requirements
