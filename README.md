@@ -1,6 +1,6 @@
 # LPRTableView
 
-LPRTableView (LPR is short for LongPressReorderTableView) is a drop-in replacement for UITableView and UITableViewController that supports reordering by simply long-pressing on a cell. LPRTableView is written completely in Swift (adapted from Objective-C, original code by: [bvogelzang/BVReorderTableView](https://github.com/bvogelzang/BVReorderTableView)).
+LPRTableView (LPR is short for “Long Press to Reorder”) is a drop-in replacement for UITableView and UITableViewController that supports reordering by simply long-pressing on a cell. LPRTableView is written completely in Swift (adapted from Objective-C, original code by: [bvogelzang/BVReorderTableView](https://github.com/bvogelzang/BVReorderTableView)).
 
 <img alt="Sample Screenshot" width="320" height="568" src="http://f.cl.ly/items/0l0L3X0a2Y3B3J390m3J/SampleScreenshot.png" />
 
@@ -42,7 +42,7 @@ func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPa
 
 See the ReorderTest demo project included in this repository for a working example of the project, including the code above.
 
-If you’re replacing `UITableViewController` with `LPRTableViewController` and are using a custom `UITableViewCell` subclass, then you must override `registerClasses()` and register the appropriate table view cell class(es) within this method. **Do not** call super within this method.
+If you’re replacing `UITableViewController` with `LPRTableViewController` and are using a custom `UITableViewCell` subclass, then you must override `registerClasses()` and register the appropriate table view cell class(es) within this method. **Do not** call `super` within this method.
 
 ```swift
 override func registerClasses() {

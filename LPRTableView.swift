@@ -10,33 +10,45 @@ import Foundation
 import QuartzCore
 import UIKit
 
+/** The delegate of a LPRTableView object can adopt the LPRTableViewDelegate protocol. Optional methods of the protocol allow the delegate to modify a cell visually before dragging occurs, or to be notified when a cell is about to be dragged or about to be dropped. */
 @objc
 protocol LPRTableViewDelegate: NSObjectProtocol {
 	
-	// Provides a chance to modify the cell (visually) before dragging occurs.
+	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. */
 	@optional func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell
 	
-	// Called within an animation block when the dragging view is about to show.
+	/** Called within an animation block when the dragging view is about to show. */
 	@optional func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 	
-	// Called within an animation block when the dragging view is about to hide.
+	/** Called within an animation block when the dragging view is about to hide. */
 	@optional func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 	
 }
 
 class LPRTableView: UITableView {
 	
+	/** The object that acts as the delegate of the receiving table view. */
 	var longPressReorderDelegate: LPRTableViewDelegate!
+	
+	/** For internal use. DO NOT set this value directly. */
 	var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
+	/** For internal use. DO NOT set this value directly. */
 	var initialIndexPath: NSIndexPath?
+	
+	/** For internal use. DO NOT set this value directly. */
 	var currentLocationIndexPath: NSIndexPath?
 	
+	/** For internal use. DO NOT set this value directly. */
 	var draggingView: UIView?
 	
+	/** For internal use. DO NOT set this value directly. */
 	var scrollRate = 0.0
+	
+	/** For internal use. DO NOT set this value directly. */
 	var scrollDisplayLink: CADisplayLink?
 	
+	/** A Bool property that indicates whether long press to reorder is enabled. */
 	var longPressReorderEnabled: Bool {
 	get {
 		return longPressGestureRecognizer.enabled
@@ -281,6 +293,7 @@ extension LPRTableView {
 
 class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
+	/** Returns the long press to reorder table view managed by the controller object. */
 	var lprTableView: LPRTableView! { return tableView as LPRTableView }
 	
 	init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
@@ -306,19 +319,23 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 		lprTableView.longPressReorderDelegate = self
 	}
 	
+	/** Override this method to register custom UITableViewCell subclass(es). DO NOT call `super` within this method. */
 	func registerClasses() {
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 	}
 	
+	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. The default implementation of this method is empty—no need to call `super`. */
 	func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 		return cell
 	}
 	
+	/** Called within an animation block when the dragging view is about to show. The default implementation of this method is empty—no need to call `super`. */
 	func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
+	/** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
 	func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
