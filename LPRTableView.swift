@@ -97,7 +97,7 @@ extension LPRTableView {
 		
 		let sections = numberOfSections()
 		var rows = 0
-		for i in 0..sections {
+		for i in 0..<sections {
 			rows += numberOfRowsInSection(i)
 		}
 		
