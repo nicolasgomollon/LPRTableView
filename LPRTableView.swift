@@ -15,13 +15,13 @@ import UIKit
 protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. */
-	@optional func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell
+	optional func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell
 	
 	/** Called within an animation block when the dragging view is about to show. */
-	@optional func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+	optional func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 	
 	/** Called within an animation block when the dragging view is about to hide. */
-	@optional func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+	optional func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 	
 }
 
@@ -58,20 +58,20 @@ class LPRTableView: UITableView {
 	}
 	}
 	
-	convenience init()  {
+	convenience override init()  {
 		self.init(frame: CGRectZero)
 	}
 	
-	convenience init(frame: CGRect) {
+	convenience override init(frame: CGRect) {
 		self.init(frame: frame, style: .Plain)
 	}
 	
-	init(frame: CGRect, style: UITableViewStyle) {
+	override init(frame: CGRect, style: UITableViewStyle) {
 		super.init(frame: frame, style: style)
 		initialize()
 	}
 	
-	init(coder aDecoder: NSCoder!) {
+	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		initialize()
 	}
@@ -103,66 +103,70 @@ extension LPRTableView {
 		
 		// Get out of here if the long press was not on a valid row or our table is empty
 		// or the dataSource tableView:canMoveRowAtIndexPath: doesn't allow moving the row.
-		if (rows == 0) || ((gesture.state == UIGestureRecognizerState.Began) && (indexPath == nil)) ||
+		if (rows == 0) ||
+			((gesture.state == UIGestureRecognizerState.Began) && (indexPath == nil)) ||
 			((gesture.state == UIGestureRecognizerState.Ended) && (currentLocationIndexPath == nil)) ||
-			((gesture.state == UIGestureRecognizerState.Began) && dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath)) {
+			((gesture.state == UIGestureRecognizerState.Began) && (dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath!) == true)) {
 				cancelGesture()
 				return
 		}
 		
 		// Started.
 		if gesture.state == .Began {
-			
-			var cell = cellForRowAtIndexPath(indexPath)
-			cell.setSelected(false, animated: false)
-			cell.setHighlighted(false, animated: false)
-			
-			// Create the view that will be dragged around the screen.
-			if !draggingView {
-				if let draggingCell = longPressReorderDelegate?.tableView?(self, draggingCell: cell, atIndexPath: indexPath) {
-					cell = draggingCell
-				}
-				
-				// Make an image from the pressed table view cell.
-				UIGraphicsBeginImageContextWithOptions(cell.bounds.size, false, 0.0)
-				cell.layer.renderInContext(UIGraphicsGetCurrentContext())
-				var cellImage = UIGraphicsGetImageFromCurrentImageContext()
-				UIGraphicsEndImageContext()
-				
-				draggingView = UIImageView(image: cellImage)
-				
-				if var draggingView = draggingView {
-					addSubview(draggingView)
-					let rect = rectForRowAtIndexPath(indexPath)
-					draggingView.frame = CGRectOffset(draggingView.bounds, rect.origin.x, rect.origin.y)
+			if let indexPath = indexPath {
+				if var cell = cellForRowAtIndexPath(indexPath) {
 					
-					UIView.beginAnimations("LongPressReorder-ShowDraggingView", context: nil)
-					longPressReorderDelegate?.tableView?(self, showDraggingView: draggingView, atIndexPath: indexPath)
-					UIView.commitAnimations()
+					cell.setSelected(false, animated: false)
+					cell.setHighlighted(false, animated: false)
 					
-					// Add drop shadow to image and lower opacity.
-					draggingView.layer.masksToBounds = false
-					draggingView.layer.shadowColor = UIColor.blackColor().CGColor
-					draggingView.layer.shadowOffset = CGSizeZero
-					draggingView.layer.shadowRadius = 4.0
-					draggingView.layer.shadowOpacity = 0.7
-					draggingView.layer.opacity = 0.85
+					// Create the view that will be dragged around the screen.
+					if (draggingView == nil) {
+						if let draggingCell = longPressReorderDelegate?.tableView?(self, draggingCell: cell, atIndexPath: indexPath) {
+							cell = draggingCell
+						}
+						
+						// Make an image from the pressed table view cell.
+						UIGraphicsBeginImageContextWithOptions(cell.bounds.size, false, 0.0)
+						cell.layer.renderInContext(UIGraphicsGetCurrentContext())
+						var cellImage = UIGraphicsGetImageFromCurrentImageContext()
+						UIGraphicsEndImageContext()
+						
+						draggingView = UIImageView(image: cellImage)
+						
+						if var draggingView = draggingView {
+							addSubview(draggingView)
+							let rect = rectForRowAtIndexPath(indexPath)
+							draggingView.frame = CGRectOffset(draggingView.bounds, rect.origin.x, rect.origin.y)
+							
+							UIView.beginAnimations("LongPressReorder-ShowDraggingView", context: nil)
+							longPressReorderDelegate?.tableView?(self, showDraggingView: draggingView, atIndexPath: indexPath)
+							UIView.commitAnimations()
+							
+							// Add drop shadow to image and lower opacity.
+							draggingView.layer.masksToBounds = false
+							draggingView.layer.shadowColor = UIColor.blackColor().CGColor
+							draggingView.layer.shadowOffset = CGSizeZero
+							draggingView.layer.shadowRadius = 4.0
+							draggingView.layer.shadowOpacity = 0.7
+							draggingView.layer.opacity = 0.85
+							
+							// Zoom image towards user.
+							UIView.beginAnimations("LongPressReorder-Zoom", context: nil)
+							draggingView.transform = CGAffineTransformMakeScale(1.1, 1.1)
+							draggingView.center = CGPointMake(center.x, location.y)
+							UIView.commitAnimations()
+						}
+					}
 					
-					// Zoom image towards user.
-					UIView.beginAnimations("LongPressReorder-Zoom", context: nil)
-					draggingView.transform = CGAffineTransformMakeScale(1.1, 1.1)
-					draggingView.center = CGPointMake(center.x, location.y)
-					UIView.commitAnimations()
+					cell.hidden = true
+					currentLocationIndexPath = indexPath
+					initialIndexPath = indexPath
+					
+					// Enable scrolling for cell.
+					scrollDisplayLink = CADisplayLink(target: self, selector: "scrollTableWithCell:")
+					scrollDisplayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
 				}
 			}
-			
-			cell.hidden = true
-			currentLocationIndexPath = indexPath
-			initialIndexPath = indexPath
-			
-			// Enable scrolling for cell.
-			scrollDisplayLink = CADisplayLink(target: self, selector: "scrollTableWithCell:")
-			scrollDisplayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
 		}
 		// Dragging.
 		else if gesture.state == .Changed {
@@ -226,8 +230,9 @@ extension LPRTableView {
 					}
 					
 					// Reload the rows that were affected just to be safe.
-					let visibleRows = self.indexPathsForVisibleRows()
-					self.reloadRowsAtIndexPaths(visibleRows, withRowAnimation: .None)
+					if let visibleRows = self.indexPathsForVisibleRows() {
+						self.reloadRowsAtIndexPaths(visibleRows, withRowAnimation: .None)
+					}
 					
 					self.currentLocationIndexPath = nil
 					self.draggingView = nil
@@ -236,28 +241,28 @@ extension LPRTableView {
 	}
 	
 	func updateCurrentLocation(gesture: UILongPressGestureRecognizer) {
-		
 		let location = gesture.locationInView(self)
-		var indexPath: NSIndexPath? = indexPathForRowAtPoint(location)
-		
-		if let iIndexPath = initialIndexPath {
-			if let ip = delegate?.tableView?(self, targetIndexPathForMoveFromRowAtIndexPath: iIndexPath, toProposedIndexPath: indexPath) {
-				indexPath = ip
-			}
-		}
-		
-		if let clIndexPath = currentLocationIndexPath {
-			let oldHeight = rectForRowAtIndexPath(clIndexPath).size.height
-			let newHeight = rectForRowAtIndexPath(indexPath).size.height
+		if var indexPath = indexPathForRowAtPoint(location) {
 			
-			if indexPath && (indexPath != clIndexPath) &&
-				(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight)) {
-					
-					beginUpdates()
-					moveRowAtIndexPath(clIndexPath, toIndexPath: indexPath)
-					dataSource?.tableView?(self, moveRowAtIndexPath: clIndexPath, toIndexPath: indexPath)
-					currentLocationIndexPath = indexPath
-					endUpdates()
+			if let iIndexPath = initialIndexPath {
+				if let ip = delegate?.tableView?(self, targetIndexPathForMoveFromRowAtIndexPath: iIndexPath, toProposedIndexPath: indexPath) {
+					indexPath = ip
+				}
+			}
+			
+			if let clIndexPath = currentLocationIndexPath {
+				let oldHeight = rectForRowAtIndexPath(clIndexPath).size.height
+				let newHeight = rectForRowAtIndexPath(indexPath).size.height
+				
+				if (indexPath != clIndexPath) &&
+					(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight)) {
+						
+						beginUpdates()
+						moveRowAtIndexPath(clIndexPath, toIndexPath: indexPath)
+						dataSource?.tableView?(self, moveRowAtIndexPath: clIndexPath, toIndexPath: indexPath)
+						currentLocationIndexPath = indexPath
+						endUpdates()
+				}
 			}
 		}
 	}
@@ -296,17 +301,17 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	/** Returns the long press to reorder table view managed by the controller object. */
 	var lprTableView: LPRTableView! { return tableView as LPRTableView }
 	
-	init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+	override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		initialize()
 	}
 	
-	init(style: UITableViewStyle) {
+	override init(style: UITableViewStyle) {
 		super.init(style: style)
 		initialize()
 	}
 	
-	init(coder aDecoder: NSCoder!) {
+	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		initialize()
 	}

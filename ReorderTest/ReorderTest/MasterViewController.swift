@@ -50,7 +50,7 @@ class MasterViewController: LPRTableViewController {
 		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 		
 		let object = objects[indexPath.row]
-		cell.textLabel.text = object.description
+		cell.textLabel?.text = object.description
 		
 		//
 		// Reset any possible modifications made in `tableView:draggingCell:atIndexPath:`
@@ -75,20 +75,21 @@ class MasterViewController: LPRTableViewController {
 		}
 	}
 	
-	override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let object = objects[indexPath.row]
-		var detailViewController = storyboard.instantiateViewControllerWithIdentifier("DetailViewController") as DetailViewController
+		var detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as DetailViewController
 		detailViewController.detailItem = object
-		navigationController.pushViewController(detailViewController, animated: true)
+		navigationController?.pushViewController(detailViewController, animated: true)
 	}
 	
 	// #pragma mark - Segues
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
-			let indexPath = self.tableView.indexPathForSelectedRow()
-			let object = objects[indexPath.row]
-			(segue.destinationViewController as DetailViewController).detailItem = object
+			if let indexPath = self.tableView.indexPathForSelectedRow() {
+				let object = objects[indexPath.row]
+				(segue.destinationViewController as DetailViewController).detailItem = object
+			}
 		}
 	}
 	
@@ -97,7 +98,7 @@ class MasterViewController: LPRTableViewController {
 	//
 	// Important: Update your data source after the user reorders a cell.
 	//
-	override func tableView(tableView: UITableView!, moveRowAtIndexPath sourceIndexPath: NSIndexPath!, toIndexPath destinationIndexPath: NSIndexPath!) {
+	override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
 		let source = objects[sourceIndexPath.row]
 		let destination = objects[destinationIndexPath.row]
 		objects[sourceIndexPath.row] = destination
@@ -110,7 +111,7 @@ class MasterViewController: LPRTableViewController {
 	//    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 	//          to avoid accidentally reusing the modifications.
 	//
-	override func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //		cell.backgroundColor = UIColor(red: 165.0/255.0, green: 228.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 		return cell
 	}
@@ -118,14 +119,14 @@ class MasterViewController: LPRTableViewController {
 	//
 	// Optional: Called within an animation block when the dragging view is about to show.
 	//
-	override func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	override func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		println("The dragged cell is about to be animated!")
 	}
 	
 	//
 	// Optional: Called within an animation block when the dragging view is about to hide.
 	//
-	override func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	override func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		println("The dragged cell is about to be dropped.")
 	}
 	

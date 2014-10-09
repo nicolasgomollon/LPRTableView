@@ -10,7 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
 	
-	@IBOutlet var detailDescriptionLabel: UILabel
+	@IBOutlet var detailDescriptionLabel: UILabel?
 	
 	
 	var detailItem: AnyObject? {
@@ -27,6 +27,10 @@ class DetailViewController: UIViewController {
 		        label.text = detail.description
 		    }
 		}
+	}
+	
+	required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
 	}
 	
 	override func viewDidLoad() {

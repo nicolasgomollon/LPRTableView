@@ -12,7 +12,7 @@ Simply replace the `UITableView` of your choice with `LPRTableView`, or replace 
 It’s **important** that you update your data source after the user reorders a cell:
 
 ```swift
-override func tableView(tableView: UITableView!, moveRowAtIndexPath sourceIndexPath: NSIndexPath!, toIndexPath destinationIndexPath: NSIndexPath!) {
+override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
 	let source = objects[sourceIndexPath.row]
 	let destination = objects[destinationIndexPath.row]
 	objects[sourceIndexPath.row] = destination
@@ -28,16 +28,16 @@ There are also a few _optional_ delegate methods you may implement after setting
 // Provides a chance to modify the cell (visually) before dragging occurs.
 //    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 //          to avoid accidentally reusing the modifications.
-func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 	cell.backgroundColor = UIColor.greenColor()
 	return cell
 }
 
 // Called within an animation block when the dragging view is about to show.
-func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 
 // Called within an animation block when the dragging view is about to hide.
-func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
 ```
 
 See the ReorderTest demo project included in this repository for a working example of the project, including the code above.
