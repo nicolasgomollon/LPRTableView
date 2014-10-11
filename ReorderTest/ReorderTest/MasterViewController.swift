@@ -36,7 +36,7 @@ class MasterViewController: LPRTableViewController {
 		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 	}
 	
-	// #pragma mark - Table View
+	// MARK: - Table View
 	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
@@ -82,7 +82,7 @@ class MasterViewController: LPRTableViewController {
 		navigationController?.pushViewController(detailViewController, animated: true)
 	}
 	
-	// #pragma mark - Segues
+	// MARK: - Segues
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
@@ -93,7 +93,7 @@ class MasterViewController: LPRTableViewController {
 		}
 	}
 	
-	// #pragma mark - Long Press Reorder
+	// MARK: - Long Press Reorder
 	
 	//
 	// Important: Update your data source after the user reorders a cell.
