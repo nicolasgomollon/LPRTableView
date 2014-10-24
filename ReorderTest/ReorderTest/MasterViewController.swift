@@ -21,8 +21,8 @@ class MasterViewController: LPRTableViewController {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view, typically from a nib.
-		self.navigationItem.leftBarButtonItem = self.editButtonItem()
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+		navigationItem.leftBarButtonItem = self.editButtonItem()
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -33,7 +33,7 @@ class MasterViewController: LPRTableViewController {
 	func insertNewObject(sender: AnyObject) {
 		objects.insert(NSDate(), atIndex: 0)
 		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-		self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+		tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 	}
 	
 	// MARK: - Table View
@@ -50,13 +50,13 @@ class MasterViewController: LPRTableViewController {
 		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 		
 		let object = objects[indexPath.row]
-		cell.textLabel?.text = object.description
+		cell.textLabel.text = object.description
 		
 		//
 		// Reset any possible modifications made in `tableView:draggingCell:atIndexPath:`
 		// to avoid reusing the modified cell.
 		//
-//		cell.backgroundColor = UIColor.whiteColor()
+//		cell.backgroundColor = .whiteColor()
 		
 		return cell
 	}
@@ -86,7 +86,7 @@ class MasterViewController: LPRTableViewController {
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
-			if let indexPath = self.tableView.indexPathForSelectedRow() {
+			if let indexPath = tableView.indexPathForSelectedRow() {
 				let object = objects[indexPath.row]
 				(segue.destinationViewController as DetailViewController).detailItem = object
 			}
