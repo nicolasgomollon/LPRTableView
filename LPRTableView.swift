@@ -30,23 +30,17 @@ class LPRTableView: UITableView {
 	/** The object that acts as the delegate of the receiving table view. */
 	var longPressReorderDelegate: LPRTableViewDelegate!
 	
-	/** For internal use. DO NOT set this value directly. */
-	var longPressGestureRecognizer: UILongPressGestureRecognizer!
+	private var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
-	/** For internal use. DO NOT set this value directly. */
-	var initialIndexPath: NSIndexPath?
+	private var initialIndexPath: NSIndexPath?
 	
-	/** For internal use. DO NOT set this value directly. */
-	var currentLocationIndexPath: NSIndexPath?
+	private var currentLocationIndexPath: NSIndexPath?
 	
-	/** For internal use. DO NOT set this value directly. */
-	var draggingView: UIView?
+	private var draggingView: UIView?
 	
-	/** For internal use. DO NOT set this value directly. */
-	var scrollRate = 0.0
+	private var scrollRate = 0.0
 	
-	/** For internal use. DO NOT set this value directly. */
-	var scrollDisplayLink: CADisplayLink?
+	private var scrollDisplayLink: CADisplayLink?
 	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	var longPressReorderEnabled: Bool {
@@ -76,8 +70,8 @@ class LPRTableView: UITableView {
 		initialize()
 	}
 	
-	func initialize() {
-		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPress:")
+	private func initialize() {
+		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "_longPress:")
 		addGestureRecognizer(longPressGestureRecognizer)
 	}
 	
@@ -85,12 +79,12 @@ class LPRTableView: UITableView {
 
 extension LPRTableView {
 	
-	func cancelGesture() {
+	private func cancelGesture() {
 		longPressGestureRecognizer.enabled = false
 		longPressGestureRecognizer.enabled = true
 	}
 	
-	func longPress(gesture: UILongPressGestureRecognizer) {
+	func _longPress(gesture: UILongPressGestureRecognizer) {
 		
 		let location = gesture.locationInView(self)
 		let indexPath = indexPathForRowAtPoint(location)
@@ -163,7 +157,7 @@ extension LPRTableView {
 					initialIndexPath = indexPath
 					
 					// Enable scrolling for cell.
-					scrollDisplayLink = CADisplayLink(target: self, selector: "scrollTableWithCell:")
+					scrollDisplayLink = CADisplayLink(target: self, selector: "_scrollTableWithCell:")
 					scrollDisplayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
 				}
 			}
@@ -240,7 +234,7 @@ extension LPRTableView {
 		}
 	}
 	
-	func updateCurrentLocation(gesture: UILongPressGestureRecognizer) {
+	private func updateCurrentLocation(gesture: UILongPressGestureRecognizer) {
 		let location = gesture.locationInView(self)
 		if var indexPath = indexPathForRowAtPoint(location) {
 			
@@ -267,7 +261,7 @@ extension LPRTableView {
 		}
 	}
 	
-	func scrollTableWithCell(sender: CADisplayLink) {
+	func _scrollTableWithCell(sender: CADisplayLink) {
 		if let gesture = longPressGestureRecognizer {
 			
 			let location = gesture.locationInView(self)
@@ -316,7 +310,7 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 		initialize()
 	}
 	
-	func initialize() {
+	private func initialize() {
 		tableView = LPRTableView()
 		tableView.dataSource = self
 		tableView.delegate = self
