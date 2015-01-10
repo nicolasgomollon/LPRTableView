@@ -13,6 +13,7 @@ It’s **important** that you update your data source after the user reorders a 
 
 ```swift
 override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+	// Modify this code as needed to support more advanced reordering, such as between sections.
 	let source = objects[sourceIndexPath.row]
 	let destination = objects[destinationIndexPath.row]
 	objects[sourceIndexPath.row] = destination
@@ -20,7 +21,16 @@ override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPa
 }
 ```
 
-Long-press reordering can be disabled by setting a `Bool` to `lprTableView.longPressReorderEnabled`.
+It is possible to select which cells can be reordered by implementing the following _optional_ standard `UITableViewDataSource` method (the absence of this method defaults to all cells being reorderable):
+
+```swift
+override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+	// Change this logic to match your needs.
+	return (indexPath.section == 0)
+}
+```
+
+Long-press reordering can be disabled entirely by setting a `Bool` to `lprTableView.longPressReorderEnabled`.
 
 There are also a few _optional_ delegate methods you may implement after setting `lprTableView.longPressReorderDelegate`:
 

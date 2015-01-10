@@ -50,7 +50,7 @@ class MasterViewController: LPRTableViewController {
 		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 		
 		let object = objects[indexPath.row]
-		cell.textLabel.text = object.description
+		cell.textLabel?.text = object.description
 		
 		//
 		// Reset any possible modifications made in `tableView:draggingCell:atIndexPath:`

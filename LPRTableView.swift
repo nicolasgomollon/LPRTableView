@@ -79,6 +79,10 @@ class LPRTableView: UITableView {
 
 extension LPRTableView {
 	
+	private func canMoveRowAt(#indexPath: NSIndexPath) -> Bool {
+		return (dataSource?.respondsToSelector("tableView:canMoveRowAtIndexPath:") == false) || (dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath) == true)
+	}
+	
 	private func cancelGesture() {
 		longPressGestureRecognizer.enabled = false
 		longPressGestureRecognizer.enabled = true
@@ -100,7 +104,7 @@ extension LPRTableView {
 		if (rows == 0) ||
 			((gesture.state == UIGestureRecognizerState.Began) && (indexPath == nil)) ||
 			((gesture.state == UIGestureRecognizerState.Ended) && (currentLocationIndexPath == nil)) ||
-			((gesture.state == UIGestureRecognizerState.Began) && (dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath!) == true)) {
+			((gesture.state == UIGestureRecognizerState.Began) && !canMoveRowAt(indexPath: indexPath!)) {
 				cancelGesture()
 				return
 		}
@@ -248,9 +252,9 @@ extension LPRTableView {
 				let oldHeight = rectForRowAtIndexPath(clIndexPath).size.height
 				let newHeight = rectForRowAtIndexPath(indexPath).size.height
 				
-				if (indexPath != clIndexPath) &&
-					(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight)) {
-						
+				if ((indexPath != clIndexPath) &&
+					(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight))) &&
+					canMoveRowAt(indexPath: indexPath) {
 						beginUpdates()
 						moveRowAtIndexPath(clIndexPath, toIndexPath: indexPath)
 						dataSource?.tableView?(self, moveRowAtIndexPath: clIndexPath, toIndexPath: indexPath)
