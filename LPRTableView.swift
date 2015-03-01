@@ -301,12 +301,7 @@ extension LPRTableView {
 class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	/** Returns the long press to reorder table view managed by the controller object. */
-	var lprTableView: LPRTableView! { return tableView as LPRTableView }
-	
-	override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		initialize()
-	}
+	var lprTableView: LPRTableView! { return tableView as! LPRTableView }
 	
 	override init(style: UITableViewStyle) {
 		super.init(style: style)
@@ -332,18 +327,18 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	}
 	
 	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 		return cell
 	}
 	
 	/** Called within an animation block when the dragging view is about to show. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
 	/** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
