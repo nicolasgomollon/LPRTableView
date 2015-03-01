@@ -269,26 +269,30 @@ extension LPRTableView {
 		if let gesture = longPressGestureRecognizer {
 			
 			let location = gesture.locationInView(self)
-			let yOffset = Double(contentOffset.y) + scrollRate * 10.0
-			var newOffset = CGPointMake(contentOffset.x, CGFloat(yOffset))
 			
-			if newOffset.y < -contentInset.top {
-				newOffset.y = -contentInset.top
-			} else if (contentSize.height + contentInset.bottom) < frame.size.height {
-				newOffset = contentOffset
-			} else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
-				newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
-			}
-			
-			contentOffset = newOffset
-			
-			if let draggingView = draggingView {
-				if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
-					draggingView.center = CGPointMake(center.x, location.y)
-				}
-			}
-			
-			updateCurrentLocation(gesture)
+		        if !(location.y.isNaN || location.x.isNaN) { //explicitly check for out-of-bound touch
+		
+		                let yOffset = Double(contentOffset.y) + scrollRate * 10.0
+		                var newOffset = CGPointMake(contentOffset.x, CGFloat(yOffset))
+		                
+		                if newOffset.y < -contentInset.top {
+		                    newOffset.y = -contentInset.top
+		                } else if (contentSize.height + contentInset.bottom) < frame.size.height {
+		                    newOffset = contentOffset
+		                } else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
+		                    newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
+		                }
+		                
+		                contentOffset = newOffset
+		                
+		                if let draggingView = draggingView {
+		                    if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
+		                        draggingView.center = CGPointMake(center.x, location.y)
+		                    }
+		                }
+		                
+		                updateCurrentLocation(gesture)
+		        }			
 		}
 	}
 	
