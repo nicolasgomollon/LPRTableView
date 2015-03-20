@@ -12,7 +12,7 @@ import UIKit
 
 /** The delegate of a LPRTableView object can adopt the LPRTableViewDelegate protocol. Optional methods of the protocol allow the delegate to modify a cell visually before dragging occurs, or to be notified when a cell is about to be dragged or about to be dropped. */
 @objc
-protocol LPRTableViewDelegate: NSObjectProtocol {
+public protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. */
 	optional func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -25,10 +25,10 @@ protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 }
 
-class LPRTableView: UITableView {
+public class LPRTableView: UITableView {
 	
 	/** The object that acts as the delegate of the receiving table view. */
-	weak var longPressReorderDelegate: LPRTableViewDelegate!
+	public weak var longPressReorderDelegate: LPRTableViewDelegate!
 	
 	private var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
@@ -43,7 +43,7 @@ class LPRTableView: UITableView {
 	private var scrollDisplayLink: CADisplayLink?
 	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
-	var longPressReorderEnabled: Bool {
+	public var longPressReorderEnabled: Bool {
 	get {
 		return longPressGestureRecognizer.enabled
 	}
@@ -52,20 +52,20 @@ class LPRTableView: UITableView {
 	}
 	}
 	
-	convenience override init()  {
+	public convenience override init()  {
 		self.init(frame: CGRectZero)
 	}
 	
-	convenience override init(frame: CGRect) {
+	public convenience override init(frame: CGRect) {
 		self.init(frame: frame, style: .Plain)
 	}
 	
-	override init(frame: CGRect, style: UITableViewStyle) {
+	public override init(frame: CGRect, style: UITableViewStyle) {
 		super.init(frame: frame, style: style)
 		initialize()
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		initialize()
 	}
@@ -88,7 +88,7 @@ extension LPRTableView {
 		longPressGestureRecognizer.enabled = true
 	}
 	
-	func _longPress(gesture: UILongPressGestureRecognizer) {
+	internal func _longPress(gesture: UILongPressGestureRecognizer) {
 		
 		let location = gesture.locationInView(self)
 		let indexPath = indexPathForRowAtPoint(location)
@@ -265,7 +265,7 @@ extension LPRTableView {
 		}
 	}
 	
-	func _scrollTableWithCell(sender: CADisplayLink) {
+	internal func _scrollTableWithCell(sender: CADisplayLink) {
 		if let gesture = longPressGestureRecognizer {
 			
 			let location = gesture.locationInView(self)
@@ -298,22 +298,22 @@ extension LPRTableView {
 	
 }
 
-class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
+public class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	/** Returns the long press to reorder table view managed by the controller object. */
-	var lprTableView: LPRTableView! { return tableView as LPRTableView }
+	public var lprTableView: LPRTableView! { return tableView as LPRTableView }
 	
-	override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+	public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		initialize()
 	}
 	
-	override init(style: UITableViewStyle) {
+	public override init(style: UITableViewStyle) {
 		super.init(style: style)
 		initialize()
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		initialize()
 	}
@@ -327,23 +327,23 @@ class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	}
 	
 	/** Override this method to register custom UITableViewCell subclass(es). DO NOT call `super` within this method. */
-	func registerClasses() {
+	public func registerClasses() {
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 	}
 	
 	/** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	public func tableView(tableView: UITableView!, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 		return cell
 	}
 	
 	/** Called within an animation block when the dragging view is about to show. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	public func tableView(tableView: UITableView!, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
 	/** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
-	func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	public func tableView(tableView: UITableView!, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
