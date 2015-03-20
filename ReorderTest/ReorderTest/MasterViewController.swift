@@ -47,7 +47,7 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 		
 		let object = objects[indexPath.row]
 		cell.textLabel?.text = object.description
@@ -77,7 +77,7 @@ class MasterViewController: LPRTableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let object = objects[indexPath.row]
-		var detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
+		var detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as DetailViewController
 		detailViewController.detailItem = object
 		navigationController?.pushViewController(detailViewController, animated: true)
 	}
@@ -88,7 +88,7 @@ class MasterViewController: LPRTableViewController {
 		if segue.identifier == "showDetail" {
 			if let indexPath = tableView.indexPathForSelectedRow() {
 				let object = objects[indexPath.row]
-				(segue.destinationViewController as! DetailViewController).detailItem = object
+				(segue.destinationViewController as DetailViewController).detailItem = object
 			}
 		}
 	}
