@@ -28,7 +28,7 @@ public protocol LPRTableViewDelegate: NSObjectProtocol {
 public class LPRTableView: UITableView {
 	
 	/** The object that acts as the delegate of the receiving table view. */
-	public weak var longPressReorderDelegate: LPRTableViewDelegate!
+	public var longPressReorderDelegate: LPRTableViewDelegate!
 	
 	private var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
