@@ -99,10 +99,7 @@ class MasterViewController: LPRTableViewController {
 	// Important: Update your data source after the user reorders a cell.
 	//
 	override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-		let source = objects[sourceIndexPath.row]
-		let destination = objects[destinationIndexPath.row]
-		objects[sourceIndexPath.row] = destination
-		objects[destinationIndexPath.row] = source
+		objects.insert(objects.removeAtIndex(sourceIndexPath.row), atIndex: destinationIndexPath.row)
 	}
 	
 	//
