@@ -28,7 +28,7 @@ protocol LPRTableViewDelegate: NSObjectProtocol {
 class LPRTableView: UITableView {
 	
 	/** The object that acts as the delegate of the receiving table view. */
-	var longPressReorderDelegate: LPRTableViewDelegate!
+	weak var longPressReorderDelegate: LPRTableViewDelegate!
 	
 	private var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
@@ -210,7 +210,7 @@ extension LPRTableView {
 			
 			// Animate the drag view to the newly hovered cell.
 			UIView.animateWithDuration(0.3,
-				animations: {
+				animations: { [unowned self] in
 					if var draggingView = self.draggingView {
 						if let currentLocationIndexPath = self.currentLocationIndexPath {
 							UIView.beginAnimations("LongPressReorder-HideDraggingView", context: nil)
@@ -222,7 +222,7 @@ extension LPRTableView {
 						}
 					}
 				},
-				completion: { (finished: Bool) in
+				completion: { [unowned self] (finished: Bool) in
 					if var draggingView = self.draggingView {
 						draggingView.removeFromSuperview()
 					}
