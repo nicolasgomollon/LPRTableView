@@ -47,7 +47,7 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
 		
 		let object = objects[indexPath.row]
 		cell.textLabel?.text = object.description
@@ -77,7 +77,7 @@ class MasterViewController: LPRTableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let object = objects[indexPath.row]
-		var detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
+		let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
 		detailViewController.detailItem = object
 		navigationController?.pushViewController(detailViewController, animated: true)
 	}
@@ -86,7 +86,7 @@ class MasterViewController: LPRTableViewController {
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "showDetail" {
-			if let indexPath = tableView.indexPathForSelectedRow() {
+			if let indexPath = tableView.indexPathForSelectedRow {
 				let object = objects[indexPath.row]
 				(segue.destinationViewController as! DetailViewController).detailItem = object
 			}
@@ -117,14 +117,14 @@ class MasterViewController: LPRTableViewController {
 	// Optional: Called within an animation block when the dragging view is about to show.
 	//
 	override func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
-		println("The dragged cell is about to be animated!")
+		print("The dragged cell is about to be animated!")
 	}
 	
 	//
 	// Optional: Called within an animation block when the dragging view is about to hide.
 	//
 	override func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
-		println("The dragged cell is about to be dropped.")
+		print("The dragged cell is about to be dropped.")
 	}
 	
 }
