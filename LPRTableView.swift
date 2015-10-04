@@ -51,6 +51,22 @@ public class LPRTableView: UITableView {
 		longPressGestureRecognizer.enabled = newValue
 	}
 	}
+    
+    public func endDragging()
+    {
+        if draggingView != nil
+        {
+            self.scrollDisplayLink?.invalidate()
+            self.scrollDisplayLink = nil
+            self.scrollRate = 0.0
+            
+            self.draggingView?.removeFromSuperview()
+            self.draggingView = nil
+            self.currentLocationIndexPath = nil
+            
+            self.reloadData()
+        }
+    }
 	
 	public convenience init()  {
 		self.init(frame: CGRectZero)
