@@ -299,7 +299,7 @@ public class LPRTableViewController: UITableViewController, LPRTableViewDelegate
 	/** Returns the long press to reorder table view managed by the controller object. */
 	public var lprTableView: LPRTableView! { return tableView as! LPRTableView }
 	
-	public override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		initialize()
 	}

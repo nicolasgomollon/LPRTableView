@@ -63,7 +63,7 @@ override func registerClasses() {
 
 ## Requirements
 
-Since LPRTableView is written in Swift, it requires Xcode 6 or above and works on iOS 7 and above.
+Since LPRTableView is written in Swift 2, it requires Xcode 7 or above and works on iOS 7 and above.
 
 
 ## License
