@@ -56,15 +56,19 @@ public class LPRTableView: UITableView {
     {
         if draggingView != nil
         {
-            self.scrollDisplayLink?.invalidate()
-            self.scrollDisplayLink = nil
-            self.scrollRate = 0.0
+            scrollDisplayLink?.invalidate()
+            scrollDisplayLink = nil
+            scrollRate = 0.0
             
-            self.draggingView?.removeFromSuperview()
-            self.draggingView = nil
-            self.currentLocationIndexPath = nil
+            draggingView?.removeFromSuperview()
+            draggingView = nil
             
-            self.reloadData()
+            if let clIndexPath = currentLocationIndexPath
+            {
+                cellForRowAtIndexPath(clIndexPath)?.hidden = false
+            }
+            
+            currentLocationIndexPath = nil
         }
     }
 	
