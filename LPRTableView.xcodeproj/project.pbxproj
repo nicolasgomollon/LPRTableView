@@ -8,30 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		AA6489FD1BCBD057008A39FB /* LPRTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA6489FC1BCBD057008A39FB /* LPRTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA648A041BCBD058008A39FB /* LPRTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6489F91BCBD057008A39FB /* LPRTableView.framework */; settings = {ASSET_TAGS = (); }; };
-		AA648A091BCBD058008A39FB /* LPRTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */; };
 		AA648A141BCBD06F008A39FB /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A131BCBD06F008A39FB /* LPRTableView.swift */; settings = {ASSET_TAGS = (); }; };
 		AA648A161BCBD33C008A39FB /* LPRTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		AA648A181BCBD49B008A39FB /* LPRTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		AA648A051BCBD058008A39FB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6489F01BCBD057008A39FB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AA6489F81BCBD057008A39FB;
-			remoteInfo = LPRTableView;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		AA6489F91BCBD057008A39FB /* LPRTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LPRTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA6489FC1BCBD057008A39FB /* LPRTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LPRTableView.h; sourceTree = "<group>"; };
 		AA6489FE1BCBD057008A39FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LPRTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LPRTableViewTests.swift; sourceTree = "<group>"; };
-		AA648A0A1BCBD058008A39FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA648A131BCBD06F008A39FB /* LPRTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableView.swift; sourceTree = "<group>"; };
 		AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableViewController.swift; sourceTree = "<group>"; };
 		AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -45,14 +30,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA648A001BCBD058008A39FB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA648A041BCBD058008A39FB /* LPRTableView.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,7 +37,6 @@
 			isa = PBXGroup;
 			children = (
 				AA6489FB1BCBD057008A39FB /* LPRTableView */,
-				AA648A071BCBD058008A39FB /* LPRTableViewTests */,
 				AA6489FA1BCBD057008A39FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				AA6489F91BCBD057008A39FB /* LPRTableView.framework */,
-				AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,15 +59,6 @@
 				AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */,
 			);
 			path = LPRTableView;
-			sourceTree = "<group>";
-		};
-		AA648A071BCBD058008A39FB /* LPRTableViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */,
-				AA648A0A1BCBD058008A39FB /* Info.plist */,
-			);
-			path = LPRTableViewTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,24 +93,6 @@
 			productReference = AA6489F91BCBD057008A39FB /* LPRTableView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		AA648A021BCBD058008A39FB /* LPRTableViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA648A101BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableViewTests" */;
-			buildPhases = (
-				AA6489FF1BCBD058008A39FB /* Sources */,
-				AA648A001BCBD058008A39FB /* Frameworks */,
-				AA648A011BCBD058008A39FB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA648A061BCBD058008A39FB /* PBXTargetDependency */,
-			);
-			name = LPRTableViewTests;
-			productName = LPRTableViewTests;
-			productReference = AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -156,9 +104,6 @@
 				ORGANIZATIONNAME = "Nicolas Gomollon";
 				TargetAttributes = {
 					AA6489F81BCBD057008A39FB = {
-						CreatedOnToolsVersion = 7.0.1;
-					};
-					AA648A021BCBD058008A39FB = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
 				};
@@ -176,20 +121,12 @@
 			projectRoot = "";
 			targets = (
 				AA6489F81BCBD057008A39FB /* LPRTableView */,
-				AA648A021BCBD058008A39FB /* LPRTableViewTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AA6489F71BCBD057008A39FB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA648A011BCBD058008A39FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -209,23 +146,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA6489FF1BCBD058008A39FB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA648A091BCBD058008A39FB /* LPRTableViewTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		AA648A061BCBD058008A39FB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AA6489F81BCBD057008A39FB /* LPRTableView */;
-			targetProxy = AA648A051BCBD058008A39FB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA648A0B1BCBD058008A39FB /* Debug */ = {
@@ -352,26 +273,6 @@
 			};
 			name = Release;
 		};
-		AA648A111BCBD058008A39FB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LPRTableViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		AA648A121BCBD058008A39FB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = LPRTableViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableViewTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -391,14 +292,7 @@
 				AA648A0F1BCBD058008A39FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		AA648A101BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA648A111BCBD058008A39FB /* Debug */,
-				AA648A121BCBD058008A39FB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
