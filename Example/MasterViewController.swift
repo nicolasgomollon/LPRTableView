@@ -7,21 +7,19 @@
 //
 
 import UIKit
+import LPRTableView
 
-class MasterViewController: LPRTableViewController {
+private let cellIdentifier = "Cell"
+
+final class MasterViewController: LPRTableViewController {
 	
-	var objects = Array<NSDate>()
-	
-	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-	}
+	private var objects = [NSDate]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Do any additional setup after loading the view, typically from a nib.
-		navigationItem.leftBarButtonItem = self.editButtonItem()
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+		navigationItem.leftBarButtonItem = editButtonItem()
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
 	}
 	
@@ -36,18 +34,13 @@ class MasterViewController: LPRTableViewController {
 		tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 	}
 	
-	// MARK: - Table View
-	
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1
-	}
-	
+	// MARK: - UITableViewDataSource
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return objects.count
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+		let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
 		
 		let object = objects[indexPath.row]
 		cell.textLabel?.text = object.description
@@ -62,17 +55,20 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		// Return false if you do not want the specified item to be editable.
 		return true
 	}
 	
 	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		if editingStyle == .Delete {
-			objects.removeAtIndex(indexPath.row)
-			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-		} else if editingStyle == .Insert {
-			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-		}
+        switch editingStyle {
+        case .Delete:
+            objects.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        case .Insert:
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+            break
+        default:
+            break
+        }
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -94,7 +90,6 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	// MARK: - Long Press Reorder
-	
 	//
 	// Important: Update your data source after the user reorders a cell.
 	//
@@ -108,7 +103,7 @@ class MasterViewController: LPRTableViewController {
 	//    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 	//          to avoid accidentally reusing the modifications.
 	//
-	override func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //		cell.backgroundColor = UIColor(red: 165.0/255.0, green: 228.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 		return cell
 	}
@@ -116,15 +111,14 @@ class MasterViewController: LPRTableViewController {
 	//
 	// Optional: Called within an animation block when the dragging view is about to show.
 	//
-	override func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
-		print("The dragged cell is about to be animated!")
-	}
+    func tableView(tableView: UITableView, willAppearDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+        print("The dragged cell is about to be animated!")
+    }
 	
 	//
 	// Optional: Called within an animation block when the dragging view is about to hide.
 	//
-	override func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
-		print("The dragged cell is about to be dropped.")
-	}
-	
+    func tableView(tableView: UITableView, willDisappearDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+        print("The dragged cell is about to be dropped.")
+    }
 }

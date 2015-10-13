@@ -11,8 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
 	
 	@IBOutlet var detailDescriptionLabel: UILabel?
-	
-	
+
 	var detailItem: AnyObject? {
 		didSet {
 		    // Update the view.
