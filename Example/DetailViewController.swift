@@ -1,47 +1,40 @@
 //
 //  DetailViewController.swift
-//  ReorderTest
+//  LPRTableView
 //
-//  Created by Nicolas Gomollon on 6/17/14.
-//  Copyright (c) 2014 Techno-Magic. All rights reserved.
+//  Created by Yuki Nagai on 10/13/15.
+//  Copyright © 2015 Nicolas Gomollon. All rights reserved.
 //
 
 import UIKit
 
-class DetailViewController: UIViewController {
-	
-	@IBOutlet var detailDescriptionLabel: UILabel?
+final class DetailViewController: UIViewController {
 
-	var detailItem: AnyObject? {
-		didSet {
-		    // Update the view.
-		    configureView()
-		}
-	}
-	
-	func configureView() {
-		// Update the user interface for the detail item.
-		if let detail: AnyObject = detailItem {
-		    if let label = detailDescriptionLabel {
-		        label.text = detail.description
-		    }
-		}
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
-		configureView()
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
+    @IBOutlet weak var label: UILabel?
+    
+    var detailItem: AnyObject? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        configureView()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    private func configureView() {
+        // Update the user interface for the detail item.
+        guard let detailItem = detailItem else {
+            return
+        }
+        label?.text = detailItem.description
+    }
 }
-

@@ -57,6 +57,10 @@ extension LPRTableView {
         return dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath) ?? true
     }
     
+    private func shouldMoveRowAtIndexPath(indexPath: NSIndexPath, forGestureRecognizer gestureRecognizer: UILongPressGestureRecognizer) -> Bool {
+        return longPressReorderDelegate?.tableView(self, shouldMoveRowAtIndexPath: indexPath, forGestureRecognizer: gestureRecognizer) ?? true
+    }
+    
     private func cancelGesture() {
         longPressGestureRecognizer.enabled = false
         longPressGestureRecognizer.enabled = true
@@ -85,10 +89,6 @@ extension LPRTableView {
         default:
             break
         }
-    }
-    
-    public func shouldMoveRowAtIndexPath(indexPath: NSIndexPath, forGestureRecognizer gestureRecognizer: UILongPressGestureRecognizer) -> Bool {
-        return true
     }
     
     private func longPressBegan(gestureRecognizer: UILongPressGestureRecognizer) {
