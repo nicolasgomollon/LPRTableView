@@ -216,8 +216,8 @@ extension LPRTableView {
         switch gestureRecognizer.state {
         case .Began:
             if indexPath == nil || // Invalid row
-                canMoveRowAtIndexPath(indexPath!) || // Datasource decision
-                shouldMoveRowAtIndexPath(indexPath!, forGestureRecognizer: gestureRecognizer) { // For gesture value
+                !canMoveRowAtIndexPath(indexPath!) || // Datasource decision
+                !shouldMoveRowAtIndexPath(indexPath!, forGestureRecognizer: gestureRecognizer) { // For gesture value
                     return false
             }
         case .Ended:
@@ -256,7 +256,7 @@ extension LPRTableView {
         }
     }
     
-    private func scrollTableView(sender: CADisplayLink) {
+    internal func scrollTableView(sender: CADisplayLink) {
         let location = longPressGestureRecognizer.locationInView(self)
         guard location.x.isNaN || location.y.isNaN else {
             // Explicitly check for out-of-bound touch
