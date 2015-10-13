@@ -10,6 +10,7 @@ import UIKit
 
 final class DetailViewController: UIViewController {
 
+    // Can be nil when detailItem is updated by prepareForSegue
     @IBOutlet weak var label: UILabel?
     
     var detailItem: AnyObject? {
