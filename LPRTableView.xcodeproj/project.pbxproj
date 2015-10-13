@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA6489FD1BCBD057008A39FB /* LPRTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA6489FC1BCBD057008A39FB /* LPRTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA648A041BCBD058008A39FB /* LPRTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6489F91BCBD057008A39FB /* LPRTableView.framework */; settings = {ASSET_TAGS = (); }; };
+		AA648A091BCBD058008A39FB /* LPRTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */; };
+		AA648A141BCBD06F008A39FB /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A131BCBD06F008A39FB /* LPRTableView.swift */; settings = {ASSET_TAGS = (); }; };
+		AA648A161BCBD33C008A39FB /* LPRTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		AA648A181BCBD49B008A39FB /* LPRTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA648A051BCBD058008A39FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6489F01BCBD057008A39FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA6489F81BCBD057008A39FB;
+			remoteInfo = LPRTableView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AA6489F91BCBD057008A39FB /* LPRTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LPRTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA6489FC1BCBD057008A39FB /* LPRTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LPRTableView.h; sourceTree = "<group>"; };
+		AA6489FE1BCBD057008A39FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LPRTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LPRTableViewTests.swift; sourceTree = "<group>"; };
+		AA648A0A1BCBD058008A39FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA648A131BCBD06F008A39FB /* LPRTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableView.swift; sourceTree = "<group>"; };
+		AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableViewController.swift; sourceTree = "<group>"; };
+		AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableViewDelegate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA6489F51BCBD057008A39FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA648A001BCBD058008A39FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA648A041BCBD058008A39FB /* LPRTableView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA6489EF1BCBD057008A39FB = {
+			isa = PBXGroup;
+			children = (
+				AA6489FB1BCBD057008A39FB /* LPRTableView */,
+				AA648A071BCBD058008A39FB /* LPRTableViewTests */,
+				AA6489FA1BCBD057008A39FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA6489FA1BCBD057008A39FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA6489F91BCBD057008A39FB /* LPRTableView.framework */,
+				AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA6489FB1BCBD057008A39FB /* LPRTableView */ = {
+			isa = PBXGroup;
+			children = (
+				AA6489FC1BCBD057008A39FB /* LPRTableView.h */,
+				AA6489FE1BCBD057008A39FB /* Info.plist */,
+				AA648A131BCBD06F008A39FB /* LPRTableView.swift */,
+				AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */,
+				AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */,
+			);
+			path = LPRTableView;
+			sourceTree = "<group>";
+		};
+		AA648A071BCBD058008A39FB /* LPRTableViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA648A081BCBD058008A39FB /* LPRTableViewTests.swift */,
+				AA648A0A1BCBD058008A39FB /* Info.plist */,
+			);
+			path = LPRTableViewTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AA6489F61BCBD057008A39FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA6489FD1BCBD057008A39FB /* LPRTableView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AA6489F81BCBD057008A39FB /* LPRTableView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA648A0D1BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableView" */;
+			buildPhases = (
+				AA6489F41BCBD057008A39FB /* Sources */,
+				AA6489F51BCBD057008A39FB /* Frameworks */,
+				AA6489F61BCBD057008A39FB /* Headers */,
+				AA6489F71BCBD057008A39FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LPRTableView;
+			productName = LPRTableView;
+			productReference = AA6489F91BCBD057008A39FB /* LPRTableView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AA648A021BCBD058008A39FB /* LPRTableViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA648A101BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableViewTests" */;
+			buildPhases = (
+				AA6489FF1BCBD058008A39FB /* Sources */,
+				AA648A001BCBD058008A39FB /* Frameworks */,
+				AA648A011BCBD058008A39FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA648A061BCBD058008A39FB /* PBXTargetDependency */,
+			);
+			name = LPRTableViewTests;
+			productName = LPRTableViewTests;
+			productReference = AA648A031BCBD058008A39FB /* LPRTableViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA6489F01BCBD057008A39FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Nicolas Gomollon";
+				TargetAttributes = {
+					AA6489F81BCBD057008A39FB = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+					AA648A021BCBD058008A39FB = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = AA6489F31BCBD057008A39FB /* Build configuration list for PBXProject "LPRTableView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AA6489EF1BCBD057008A39FB;
+			productRefGroup = AA6489FA1BCBD057008A39FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA6489F81BCBD057008A39FB /* LPRTableView */,
+				AA648A021BCBD058008A39FB /* LPRTableViewTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA6489F71BCBD057008A39FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA648A011BCBD058008A39FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA6489F41BCBD057008A39FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA648A181BCBD49B008A39FB /* LPRTableViewDelegate.swift in Sources */,
+				AA648A161BCBD33C008A39FB /* LPRTableViewController.swift in Sources */,
+				AA648A141BCBD06F008A39FB /* LPRTableView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA6489FF1BCBD058008A39FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA648A091BCBD058008A39FB /* LPRTableViewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA648A061BCBD058008A39FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA6489F81BCBD057008A39FB /* LPRTableView */;
+			targetProxy = AA648A051BCBD058008A39FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AA648A0B1BCBD058008A39FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AA648A0C1BCBD058008A39FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA648A0E1BCBD058008A39FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LPRTableView/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA648A0F1BCBD058008A39FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = LPRTableView/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		AA648A111BCBD058008A39FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LPRTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AA648A121BCBD058008A39FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LPRTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA6489F31BCBD057008A39FB /* Build configuration list for PBXProject "LPRTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA648A0B1BCBD058008A39FB /* Debug */,
+				AA648A0C1BCBD058008A39FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA648A0D1BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA648A0E1BCBD058008A39FB /* Debug */,
+				AA648A0F1BCBD058008A39FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AA648A101BCBD058008A39FB /* Build configuration list for PBXNativeTarget "LPRTableViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA648A111BCBD058008A39FB /* Debug */,
+				AA648A121BCBD058008A39FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA6489F01BCBD057008A39FB /* Project object */;
+}
