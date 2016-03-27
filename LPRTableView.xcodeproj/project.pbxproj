@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		AA6489FD1BCBD057008A39FB /* LPRTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA6489FC1BCBD057008A39FB /* LPRTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA648A141BCBD06F008A39FB /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A131BCBD06F008A39FB /* LPRTableView.swift */; settings = {ASSET_TAGS = (); }; };
-		AA648A161BCBD33C008A39FB /* LPRTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AA648A181BCBD49B008A39FB /* LPRTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		AA648A141BCBD06F008A39FB /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A131BCBD06F008A39FB /* LPRTableView.swift */; };
+		AA648A161BCBD33C008A39FB /* LPRTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A151BCBD33C008A39FB /* LPRTableViewController.swift */; };
+		AA648A181BCBD49B008A39FB /* LPRTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA648A171BCBD49B008A39FB /* LPRTableViewDelegate.swift */; };
 		AA779A4C1BCCF4C6000F107E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA779A4B1BCCF4C6000F107E /* AppDelegate.swift */; };
 		AA779A511BCCF4C6000F107E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA779A4F1BCCF4C6000F107E /* Main.storyboard */; };
 		AA779A531BCCF4C6000F107E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA779A521BCCF4C6000F107E /* Assets.xcassets */; };
 		AA779A561BCCF4C6000F107E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA779A541BCCF4C6000F107E /* LaunchScreen.storyboard */; };
-		AA779A5C1BCCF588000F107E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA779A5B1BCCF588000F107E /* MasterViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AA779A5E1BCCFC17000F107E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA779A5D1BCCFC17000F107E /* DetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		AA779A5C1BCCF588000F107E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA779A5B1BCCF588000F107E /* MasterViewController.swift */; };
+		AA779A5E1BCCFC17000F107E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA779A5D1BCCFC17000F107E /* DetailViewController.swift */; };
 		AA779A5F1BCCFFA3000F107E /* LPRTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6489F91BCBD057008A39FB /* LPRTableView.framework */; };
 /* End PBXBuildFile section */
 
@@ -286,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -328,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -348,7 +348,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = LPRTableView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -367,7 +366,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = LPRTableView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasgomollon.LPRTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
