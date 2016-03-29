@@ -93,6 +93,12 @@ public class LPRTableView: UITableView {
 	
 }
 
+extension LPRTableView: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return draggingView == nil
+    }
+}
+
 extension LPRTableView {
 	
 	private func canMoveRowAt(indexPath indexPath: NSIndexPath) -> Bool {
