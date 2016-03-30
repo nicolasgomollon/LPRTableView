@@ -95,7 +95,11 @@ public class LPRTableView: UITableView {
 
 extension LPRTableView: UIGestureRecognizerDelegate {
     public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return draggingView == nil
+        if !gestureRecognizer.isKindOfClass(UILongPressGestureRecognizer) && !otherGestureRecognizer.isKindOfClass(UILongPressGestureRecognizer) {
+            return false
+        } else {
+            return draggingView == nil
+        }
     }
 }
 
