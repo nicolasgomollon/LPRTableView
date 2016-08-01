@@ -67,7 +67,7 @@ public class LPRTableView: UITableView {
 	}
 	
 	private func initialize() {
-		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "_longPress:")
+		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(LPRTableView._longPress(_:)))
 		addGestureRecognizer(longPressGestureRecognizer)
 	}
 	
@@ -76,7 +76,7 @@ public class LPRTableView: UITableView {
 extension LPRTableView {
 	
 	private func canMoveRowAt(indexPath indexPath: NSIndexPath) -> Bool {
-		return (dataSource?.respondsToSelector("tableView:canMoveRowAtIndexPath:") == false) || (dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath) == true)
+		return (dataSource?.respondsToSelector(#selector(UITableViewDataSource.tableView(_:canMoveRowAtIndexPath:))) == false) || (dataSource?.tableView?(self, canMoveRowAtIndexPath: indexPath) == true)
 	}
 	
 	private func cancelGesture() {
@@ -157,7 +157,7 @@ extension LPRTableView {
 					initialIndexPath = indexPath
 					
 					// Enable scrolling for cell.
-					scrollDisplayLink = CADisplayLink(target: self, selector: "_scrollTableWithCell:")
+					scrollDisplayLink = CADisplayLink(target: self, selector: #selector(LPRTableView._scrollTableWithCell(_:)))
 					scrollDisplayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
 				}
 			}
