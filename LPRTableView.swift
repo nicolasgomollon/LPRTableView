@@ -44,12 +44,12 @@ public class LPRTableView: UITableView {
 	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	public var longPressReorderEnabled: Bool {
-	get {
-		return longPressGestureRecognizer.enabled
-	}
-	set {
-		longPressGestureRecognizer.enabled = newValue
-	}
+		get {
+			return longPressGestureRecognizer.enabled
+		}
+		set {
+			longPressGestureRecognizer.enabled = newValue
+		}
 	}
 	
 	public convenience init()  {
