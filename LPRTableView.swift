@@ -51,6 +51,26 @@ public class LPRTableView: UITableView {
 			longPressGestureRecognizer.enabled = newValue
 		}
 	}
+    
+    public func endDragging()
+    {
+        if draggingView != nil
+        {
+            scrollDisplayLink?.invalidate()
+            scrollDisplayLink = nil
+            scrollRate = 0.0
+            
+            draggingView?.removeFromSuperview()
+            draggingView = nil
+            
+            if let clIndexPath = currentLocationIndexPath
+            {
+                cellForRowAtIndexPath(clIndexPath)?.hidden = false
+            }
+            
+            currentLocationIndexPath = nil
+        }
+    }
 	
 	public convenience init()  {
 		self.init(frame: CGRectZero)
@@ -71,6 +91,16 @@ public class LPRTableView: UITableView {
 		addGestureRecognizer(longPressGestureRecognizer)
 	}
 	
+}
+
+extension LPRTableView: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if !gestureRecognizer.isKindOfClass(UILongPressGestureRecognizer) && !otherGestureRecognizer.isKindOfClass(UILongPressGestureRecognizer) {
+            return false
+        } else {
+            return draggingView == nil
+        }
+    }
 }
 
 extension LPRTableView {
@@ -248,6 +278,8 @@ extension LPRTableView {
 				let oldHeight = rectForRowAtIndexPath(clIndexPath).size.height
 				let newHeight = rectForRowAtIndexPath(indexPath).size.height
 				
+                cellForRowAtIndexPath(clIndexPath)?.hidden = true
+                
 				if ((indexPath != clIndexPath) &&
 					(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight))) &&
 					canMoveRowAt(indexPath: indexPath) {
