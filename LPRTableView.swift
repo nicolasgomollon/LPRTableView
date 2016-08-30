@@ -248,6 +248,12 @@ extension LPRTableView {
 				let oldHeight = rectForRowAtIndexPath(clIndexPath).size.height
 				let newHeight = rectForRowAtIndexPath(indexPath).size.height
 				
+				if let cell = cellForRowAtIndexPath(clIndexPath) {
+					cell.setSelected(false, animated: false)
+					cell.setHighlighted(false, animated: false)
+					cell.hidden = true
+				}
+				
 				if ((indexPath != clIndexPath) &&
 					(gesture.locationInView(cellForRowAtIndexPath(indexPath)).y > (newHeight - oldHeight))) &&
 					canMoveRowAt(indexPath: indexPath) {
