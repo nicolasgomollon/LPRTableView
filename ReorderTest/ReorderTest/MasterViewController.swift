@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: LPRTableViewController {
 	
-	var objects = Array<NSDate>()
+	var objects = Array<Date>()
 	
 	
 	override func awakeFromNib() {
@@ -21,8 +21,8 @@ class MasterViewController: LPRTableViewController {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view, typically from a nib.
-		navigationItem.leftBarButtonItem = self.editButtonItem()
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(MasterViewController.insertNewObject(_:)))
+		navigationItem.leftBarButtonItem = self.editButtonItem
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(MasterViewController.insertNewObject(_:)))
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -30,24 +30,24 @@ class MasterViewController: LPRTableViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
-	func insertNewObject(sender: AnyObject) {
-		objects.insert(NSDate(), atIndex: 0)
-		let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-		tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+	func insertNewObject(_ sender: AnyObject) {
+		objects.insert(Date(), at: 0)
+		let indexPath = IndexPath(row: 0, section: 0)
+		tableView.insertRows(at: [indexPath], with: .automatic)
 	}
 	
 	// MARK: - Table View
 	
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return objects.count
 	}
 	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
 		
 		let object = objects[indexPath.row]
 		cell.textLabel?.text = object.description
@@ -61,34 +61,34 @@ class MasterViewController: LPRTableViewController {
 		return cell
 	}
 	
-	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		// Return false if you do not want the specified item to be editable.
 		return true
 	}
 	
-	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		if editingStyle == .Delete {
-			objects.removeAtIndex(indexPath.row)
-			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-		} else if editingStyle == .Insert {
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
+			objects.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .fade)
+		} else if editingStyle == .insert {
 			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 		}
 	}
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let object = objects[indexPath.row]
-		let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
-		detailViewController.detailItem = object
+		let detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+		detailViewController.detailItem = object as AnyObject?
 		navigationController?.pushViewController(detailViewController, animated: true)
 	}
 	
 	// MARK: - Segues
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "showDetail" {
 			if let indexPath = tableView.indexPathForSelectedRow {
 				let object = objects[indexPath.row]
-				(segue.destinationViewController as! DetailViewController).detailItem = object
+				(segue.destination as! DetailViewController).detailItem = object as AnyObject?
 			}
 		}
 	}
@@ -98,8 +98,8 @@ class MasterViewController: LPRTableViewController {
 	//
 	// Important: Update your data source after the user reorders a cell.
 	//
-	override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-		objects.insert(objects.removeAtIndex(sourceIndexPath.row), atIndex: destinationIndexPath.row)
+	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+		objects.insert(objects.remove(at: sourceIndexPath.row), at: destinationIndexPath.row)
 	}
 	
 	//
@@ -108,7 +108,7 @@ class MasterViewController: LPRTableViewController {
 	//    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 	//          to avoid accidentally reusing the modifications.
 	//
-	override func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, draggingCell cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell {
 //		cell.backgroundColor = UIColor(red: 165.0/255.0, green: 228.0/255.0, blue: 255.0/255.0, alpha: 1.0)
 		return cell
 	}
@@ -116,14 +116,14 @@ class MasterViewController: LPRTableViewController {
 	//
 	// Optional: Called within an animation block when the dragging view is about to show.
 	//
-	override func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, showDraggingView view: UIView, at indexPath: IndexPath) {
 		print("The dragged cell is about to be animated!")
 	}
 	
 	//
 	// Optional: Called within an animation block when the dragging view is about to hide.
 	//
-	override func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath) {
 		print("The dragged cell is about to be dropped.")
 	}
 	

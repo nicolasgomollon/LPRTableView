@@ -12,7 +12,7 @@ Simply replace the `UITableView` of your choice with `LPRTableView`, or replace 
 It’s **important** that you update your data source after the user reorders a cell:
 
 ```swift
-override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 	// Modify this code as needed to support more advanced reordering, such as between sections.
 	let source = objects[sourceIndexPath.row]
 	let destination = objects[destinationIndexPath.row]
@@ -24,7 +24,7 @@ override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPa
 It is possible to select which cells can be reordered by implementing the following _optional_ standard `UITableViewDataSource` method (the absence of this method defaults to all cells being reorderable):
 
 ```swift
-override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 	// Change this logic to match your needs.
 	return (indexPath.section == 0)
 }
@@ -38,16 +38,16 @@ There are also a few _optional_ delegate methods you may implement after setting
 // Provides a chance to modify the cell (visually) before dragging occurs.
 //    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 //          to avoid accidentally reusing the modifications.
-func tableView(tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-	cell.backgroundColor = UIColor.greenColor()
+func tableView(_ tableView: UITableView, draggingCell cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	cell.backgroundColor = .green
 	return cell
 }
 
 // Called within an animation block when the dragging view is about to show.
-func tableView(tableView: UITableView, showDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+func tableView(_ tableView: UITableView, showDraggingView view: UIView, at indexPath: NSIndexPath)
 
 // Called within an animation block when the dragging view is about to hide.
-func tableView(tableView: UITableView, hideDraggingView view: UIView, atIndexPath indexPath: NSIndexPath)
+func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: NSIndexPath)
 ```
 
 See the ReorderTest demo project included in this repository for a working example of the project, including the code above.
@@ -56,14 +56,14 @@ If you’re replacing `UITableViewController` with `LPRTableViewController` and 
 
 ```swift
 override func registerClasses() {
-	tableView.registerClass(MyCustomTableViewCell.self, forCellReuseIdentifier: "Cell")
+	tableView.register(MyCustomTableViewCell.self, forCellReuseIdentifier: "Cell")
 }
 ```
 
 
 ## Requirements
 
-Since LPRTableView is written in Swift 2, it requires Xcode 7 or above and works on iOS 7 and above.
+Since LPRTableView is written in Swift 3, it requires Xcode 8 or above and works on iOS 8 and above.
 
 
 ## License
