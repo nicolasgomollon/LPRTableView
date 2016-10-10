@@ -42,6 +42,8 @@ open class LPRTableView: UITableView {
 	
 	fileprivate var scrollDisplayLink: CADisplayLink?
 	
+    var feedbackGenerator : AnyObject? = nil
+    
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	open var longPressReorderEnabled: Bool {
 		get {
@@ -107,6 +109,9 @@ extension LPRTableView {
 		
 		// Started.
 		if gesture.state == .began {
+            self.hapticFeedbackSetup()
+            self.hapticFeedbackSelectionChanged()
+            
 			if let indexPath = indexPath {
 				if var cell = cellForRow(at: indexPath) {
 					
@@ -230,8 +235,14 @@ extension LPRTableView {
 					
 					self.currentLocationIndexPath = nil
 					self.draggingView = nil
+                    
+                    self.hapticFeedbackSelectionChanged()
+                    self.hapticFeedbackFinalize()
 				})
 		}
+        else if gesture.state == .cancelled || gesture.state == .failed {
+            self.hapticFeedbackFinalize()
+        }
 	}
 	
 	fileprivate func updateCurrentLocation(_ gesture: UILongPressGestureRecognizer) {
@@ -262,6 +273,8 @@ extension LPRTableView {
 						dataSource?.tableView?(self, moveRowAt: clIndexPath, to: indexPath)
 						currentLocationIndexPath = indexPath
 						endUpdates()
+                    
+                        self.hapticFeedbackSelectionChanged()
 				}
 			}
 		}
@@ -298,6 +311,32 @@ extension LPRTableView {
 		}
 	}
 	
+}
+
+extension LPRTableView {
+    func hapticFeedbackSetup() {
+        if #available(iOS 10.0, *) {
+            let feedbackGenerator = UISelectionFeedbackGenerator()
+            feedbackGenerator.prepare()
+            
+            self.feedbackGenerator = feedbackGenerator
+        }
+    }
+    
+    func hapticFeedbackSelectionChanged() {
+        if #available(iOS 10.0, *) {
+            if let feedbackGenerator = self.feedbackGenerator as? UISelectionFeedbackGenerator {
+                feedbackGenerator.selectionChanged()
+                feedbackGenerator.prepare()
+            }
+        }
+    }
+    
+    func hapticFeedbackFinalize() {
+        if #available(iOS 10.0, *) {
+            self.feedbackGenerator = nil
+        }
+    }
 }
 
 open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
