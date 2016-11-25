@@ -42,8 +42,8 @@ open class LPRTableView: UITableView {
 	
 	fileprivate var scrollDisplayLink: CADisplayLink?
 	
-    var feedbackGenerator : AnyObject? = nil
-    
+	fileprivate var feedbackGenerator: AnyObject?
+	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	open var longPressReorderEnabled: Bool {
 		get {
@@ -109,9 +109,9 @@ extension LPRTableView {
 		
 		// Started.
 		if gesture.state == .began {
-            self.hapticFeedbackSetup()
-            self.hapticFeedbackSelectionChanged()
-            
+			self.hapticFeedbackSetup()
+			self.hapticFeedbackSelectionChanged()
+			
 			if let indexPath = indexPath {
 				if var cell = cellForRow(at: indexPath) {
 					
@@ -235,14 +235,14 @@ extension LPRTableView {
 					
 					self.currentLocationIndexPath = nil
 					self.draggingView = nil
-                    
-                    self.hapticFeedbackSelectionChanged()
-                    self.hapticFeedbackFinalize()
+					
+					self.hapticFeedbackSelectionChanged()
+					self.hapticFeedbackFinalize()
 				})
 		}
-        else if gesture.state == .cancelled || gesture.state == .failed {
-            self.hapticFeedbackFinalize()
-        }
+		else if gesture.state == .cancelled || gesture.state == .failed {
+			self.hapticFeedbackFinalize()
+		}
 	}
 	
 	fileprivate func updateCurrentLocation(_ gesture: UILongPressGestureRecognizer) {
@@ -273,8 +273,8 @@ extension LPRTableView {
 						dataSource?.tableView?(self, moveRowAt: clIndexPath, to: indexPath)
 						currentLocationIndexPath = indexPath
 						endUpdates()
-                    
-                        self.hapticFeedbackSelectionChanged()
+						
+						self.hapticFeedbackSelectionChanged()
 				}
 			}
 		}
@@ -285,58 +285,60 @@ extension LPRTableView {
 			
 			let location = gesture.location(in: self)
 			
-		        if !(location.y.isNaN || location.x.isNaN) { //explicitly check for out-of-bound touch
+				if !(location.y.isNaN || location.x.isNaN) { // Explicitly check for out-of-bound touch.
 		
-		                let yOffset = Double(contentOffset.y) + scrollRate * 10.0
-		                var newOffset = CGPoint(x: contentOffset.x, y: CGFloat(yOffset))
-		                
-		                if newOffset.y < -contentInset.top {
-		                    newOffset.y = -contentInset.top
-		                } else if (contentSize.height + contentInset.bottom) < frame.size.height {
-		                    newOffset = contentOffset
-		                } else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
-		                    newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
-		                }
-		                
-		                contentOffset = newOffset
-		                
-		                if let draggingView = draggingView {
-		                    if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
-		                        draggingView.center = CGPoint(x: center.x, y: location.y)
-		                    }
-		                }
-		                
-		                updateCurrentLocation(gesture)
-		        }			
+						let yOffset = Double(contentOffset.y) + scrollRate * 10.0
+						var newOffset = CGPoint(x: contentOffset.x, y: CGFloat(yOffset))
+						
+						if newOffset.y < -contentInset.top {
+							newOffset.y = -contentInset.top
+						} else if (contentSize.height + contentInset.bottom) < frame.size.height {
+							newOffset = contentOffset
+						} else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
+							newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
+						}
+						
+						contentOffset = newOffset
+						
+						if let draggingView = draggingView {
+							if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
+								draggingView.center = CGPoint(x: center.x, y: location.y)
+							}
+						}
+						
+						updateCurrentLocation(gesture)
+				}			
 		}
 	}
 	
 }
 
 extension LPRTableView {
-    func hapticFeedbackSetup() {
-        if #available(iOS 10.0, *) {
-            let feedbackGenerator = UISelectionFeedbackGenerator()
-            feedbackGenerator.prepare()
-            
-            self.feedbackGenerator = feedbackGenerator
-        }
-    }
-    
-    func hapticFeedbackSelectionChanged() {
-        if #available(iOS 10.0, *) {
-            if let feedbackGenerator = self.feedbackGenerator as? UISelectionFeedbackGenerator {
-                feedbackGenerator.selectionChanged()
-                feedbackGenerator.prepare()
-            }
-        }
-    }
-    
-    func hapticFeedbackFinalize() {
-        if #available(iOS 10.0, *) {
-            self.feedbackGenerator = nil
-        }
-    }
+	
+	fileprivate func hapticFeedbackSetup() {
+		if #available(iOS 10.0, *) {
+			let feedbackGenerator = UISelectionFeedbackGenerator()
+			feedbackGenerator.prepare()
+			
+			self.feedbackGenerator = feedbackGenerator
+		}
+	}
+	
+	fileprivate func hapticFeedbackSelectionChanged() {
+		if #available(iOS 10.0, *) {
+			if let feedbackGenerator = self.feedbackGenerator as? UISelectionFeedbackGenerator {
+				feedbackGenerator.selectionChanged()
+				feedbackGenerator.prepare()
+			}
+		}
+	}
+	
+	fileprivate func hapticFeedbackFinalize() {
+		if #available(iOS 10.0, *) {
+			self.feedbackGenerator = nil
+		}
+	}
+	
 }
 
 open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
