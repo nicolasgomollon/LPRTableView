@@ -54,6 +54,20 @@ open class LPRTableView: UITableView {
 		}
 	}
 	
+	/**
+	The minimum period a finger must press on a cell for the reordering to begin.
+	
+	The time interval is in seconds. The default duration is is 0.5 seconds.
+	*/
+	open var minimumPressDuration: CFTimeInterval {
+		get {
+			return longPressGestureRecognizer.minimumPressDuration
+		}
+		set {
+			longPressGestureRecognizer.minimumPressDuration = newValue
+		}
+	}
+	
 	public convenience init()  {
 		self.init(frame: CGRect.zero)
 	}
