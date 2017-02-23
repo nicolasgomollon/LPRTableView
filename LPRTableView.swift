@@ -172,7 +172,10 @@ extension LPRTableView {
 							// Zoom image towards user.
 							UIView.beginAnimations("LongPressReorder-Zoom", context: nil)
 							draggingView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-							draggingView.center = CGPoint(x: center.x, y: location.y)
+                            var newYCenter = location.y < (draggingView.frame.height / 2) ? 0 : location.y
+                            let bottomBound = contentSize.height - (draggingView.frame.height / 2)
+                            newYCenter = newYCenter > bottomBound ? bottomBound : newYCenter
+							draggingView.center = CGPoint(x: center.x, y: newYCenter)
 							UIView.commitAnimations()
 						}
 					}
@@ -193,10 +196,9 @@ extension LPRTableView {
 			if let draggingView = draggingView {
 				// Update position of the drag view,
 				// but don't let it go past the top or the bottom too far.
-                let centerOfDraggingView = draggingView.frame.height / 2
-				if (location.y >= centerOfDraggingView) && (location.y <= contentSize.height + 50.0) {
-					draggingView.center = CGPoint(x: center.x, y: location.y)
-				}
+                if isWithinBoundsOfTable(location, withDraggingView: draggingView) {
+                    draggingView.center = CGPoint(x: center.x, y: location.y)
+                }
 				if let previousGestureVerticalPosition = self.previousGestureVerticalPosition {
 					if location.y != previousGestureVerticalPosition {
 						longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
@@ -335,15 +337,24 @@ extension LPRTableView {
 						contentOffset = newOffset
 						
 						if let draggingView = draggingView {
-							if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
-								draggingView.center = CGPoint(x: center.x, y: location.y)
-							}
+                            if isWithinBoundsOfTable(location, withDraggingView: draggingView) {
+                                draggingView.center = CGPoint(x: center.x, y: location.y)
+                            }
 						}
 						
 						updateCurrentLocation(gesture)
 				}			
 		}
 	}
+    
+    fileprivate func isWithinBoundsOfTable(_ location: CGPoint, withDraggingView draggingView: UIView) -> Bool {
+        let cellHalfHeight = draggingView.frame.height / 2
+        let bottomBound = contentSize.height - cellHalfHeight
+        if location.y < cellHalfHeight || location.y > bottomBound {
+            return false
+        }
+        return true
+    }
 	
 }
 
