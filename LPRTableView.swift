@@ -187,7 +187,8 @@ extension LPRTableView {
 			if let draggingView = draggingView {
 				// Update position of the drag view,
 				// but don't let it go past the top or the bottom too far.
-				if (location.y >= 0.0) && (location.y <= contentSize.height + 50.0) {
+                let centerOfDraggingView = draggingView.frame.height / 2
+				if (location.y >= centerOfDraggingView) && (location.y <= contentSize.height + 50.0) {
 					draggingView.center = CGPoint(x: center.x, y: location.y)
 				}
 			}
