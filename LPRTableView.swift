@@ -172,10 +172,7 @@ extension LPRTableView {
 							// Zoom image towards user.
 							UIView.beginAnimations("LongPressReorder-Zoom", context: nil)
 							draggingView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                            var newYCenter = location.y < (draggingView.frame.height / 2) ? 0 : location.y
-                            let bottomBound = contentSize.height - (draggingView.frame.height / 2)
-                            newYCenter = newYCenter > bottomBound ? bottomBound : newYCenter
-							draggingView.center = CGPoint(x: center.x, y: newYCenter)
+                            draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
 							UIView.commitAnimations()
 						}
 					}
@@ -194,11 +191,8 @@ extension LPRTableView {
 		else if gesture.state == .changed {
 			
 			if let draggingView = draggingView {
-				// Update position of the drag view,
-				// but don't let it go past the top or the bottom too far.
-                if isWithinBoundsOfTable(location, withDraggingView: draggingView) {
-                    draggingView.center = CGPoint(x: center.x, y: location.y)
-                }
+				// Update position of the drag view
+                draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
 				if let previousGestureVerticalPosition = self.previousGestureVerticalPosition {
 					if location.y != previousGestureVerticalPosition {
 						longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
@@ -337,9 +331,7 @@ extension LPRTableView {
 						contentOffset = newOffset
 						
 						if let draggingView = draggingView {
-                            if isWithinBoundsOfTable(location, withDraggingView: draggingView) {
-                                draggingView.center = CGPoint(x: center.x, y: location.y)
-                            }
+                            draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
 						}
 						
 						updateCurrentLocation(gesture)
@@ -347,13 +339,16 @@ extension LPRTableView {
 		}
 	}
     
-    fileprivate func isWithinBoundsOfTable(_ location: CGPoint, withDraggingView draggingView: UIView) -> Bool {
-        let cellHalfHeight = draggingView.frame.height / 2
-        let bottomBound = contentSize.height - cellHalfHeight
-        if location.y < cellHalfHeight || location.y > bottomBound {
-            return false
+    fileprivate func getDragginViewsNewYCenter(_ draggingView: UIView, with location: CGPoint) -> CGFloat {
+        let cellCenter = draggingView.frame.height / 2
+        let bottomBound = contentSize.height - cellCenter
+        
+        if location.y < cellCenter {
+            return cellCenter
+        } else if location.y > bottomBound {
+            return bottomBound
         }
-        return true
+        return location.y
     }
 	
 }
