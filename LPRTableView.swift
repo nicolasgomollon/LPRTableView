@@ -22,6 +22,9 @@ public protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 	/** Called within an animation block when the dragging view is about to hide. */
 	@objc optional func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath)
+
+	/** Called when the dragging gesture's vertical location changes. */
+	@objc optional func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer)
 	
 }
 
@@ -43,6 +46,8 @@ open class LPRTableView: UITableView {
 	fileprivate var scrollDisplayLink: CADisplayLink?
 	
 	fileprivate var feedbackGenerator: AnyObject?
+
+	fileprivate var previousGestureVerticalPosition: CGFloat?
 	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	open var longPressReorderEnabled: Bool {
@@ -125,6 +130,7 @@ extension LPRTableView {
 		if gesture.state == .began {
 			self.hapticFeedbackSetup()
 			self.hapticFeedbackSelectionChanged()
+			self.previousGestureVerticalPosition = location.y
 			
 			if let indexPath = indexPath {
 				if var cell = cellForRow(at: indexPath) {
@@ -191,6 +197,15 @@ extension LPRTableView {
 				if (location.y >= centerOfDraggingView) && (location.y <= contentSize.height + 50.0) {
 					draggingView.center = CGPoint(x: center.x, y: location.y)
 				}
+				if let previousGestureVerticalPosition = self.previousGestureVerticalPosition {
+					if location.y != previousGestureVerticalPosition {
+						longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
+						self.previousGestureVerticalPosition = location.y
+					}
+				} else {
+					longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
+					self.previousGestureVerticalPosition = location.y
+				}
 			}
 			
 			var rect = bounds
@@ -218,6 +233,9 @@ extension LPRTableView {
 		}
 		// Dropped.
 		else if gesture.state == .ended {
+
+			// Remove previously cached Gesture location
+			self.previousGestureVerticalPosition = nil
 			
 			// Remove scrolling CADisplayLink.
 			scrollDisplayLink?.invalidate()
@@ -257,6 +275,7 @@ extension LPRTableView {
 		}
 		else if gesture.state == .cancelled || gesture.state == .failed {
 			self.hapticFeedbackFinalize()
+			self.previousGestureVerticalPosition = nil
 		}
 	}
 	
@@ -402,6 +421,10 @@ open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	/** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
 	open func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath) {
+		// Empty implementation, just to simplify overriding (and to show up in code completion).
+	}
+
+	open func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
