@@ -48,6 +48,9 @@ func tableView(_ tableView: UITableView, showDraggingView view: UIView, at index
 
 // Called within an animation block when the dragging view is about to hide.
 func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: NSIndexPath)
+
+// Called when the dragging gesture's vertical location changes.
+func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer)
 ```
 
 See the ReorderTest demo project included in this repository for a working example of the project, including the code above.
