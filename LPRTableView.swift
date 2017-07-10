@@ -22,13 +22,16 @@ public protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 	/** Called within an animation block when the dragging view is about to hide. */
 	@objc optional func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath)
+
+	/** Called when the dragging gesture's vertical location changes. */
+	@objc optional func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer)
 	
 }
 
 open class LPRTableView: UITableView {
 	
 	/** The object that acts as the delegate of the receiving table view. */
-	open var longPressReorderDelegate: LPRTableViewDelegate!
+	weak open var longPressReorderDelegate: LPRTableViewDelegate?
 	
 	fileprivate var longPressGestureRecognizer: UILongPressGestureRecognizer!
 	
@@ -43,6 +46,8 @@ open class LPRTableView: UITableView {
 	fileprivate var scrollDisplayLink: CADisplayLink?
 	
 	fileprivate var feedbackGenerator: AnyObject?
+
+	fileprivate var previousGestureVerticalPosition: CGFloat?
 	
 	/** A Bool property that indicates whether long press to reorder is enabled. */
 	open var longPressReorderEnabled: Bool {
@@ -125,6 +130,7 @@ extension LPRTableView {
 		if gesture.state == .began {
 			self.hapticFeedbackSetup()
 			self.hapticFeedbackSelectionChanged()
+			self.previousGestureVerticalPosition = location.y
 			
 			if let indexPath = indexPath {
 				if var cell = cellForRow(at: indexPath) {
@@ -166,7 +172,7 @@ extension LPRTableView {
 							// Zoom image towards user.
 							UIView.beginAnimations("LongPressReorder-Zoom", context: nil)
 							draggingView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-							draggingView.center = CGPoint(x: center.x, y: location.y)
+                            draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
 							UIView.commitAnimations()
 						}
 					}
@@ -185,10 +191,16 @@ extension LPRTableView {
 		else if gesture.state == .changed {
 			
 			if let draggingView = draggingView {
-				// Update position of the drag view,
-				// but don't let it go past the top or the bottom too far.
-				if (location.y >= 0.0) && (location.y <= contentSize.height + 50.0) {
-					draggingView.center = CGPoint(x: center.x, y: location.y)
+				// Update position of the drag view
+                draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
+				if let previousGestureVerticalPosition = self.previousGestureVerticalPosition {
+					if location.y != previousGestureVerticalPosition {
+						longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
+						self.previousGestureVerticalPosition = location.y
+					}
+				} else {
+					longPressReorderDelegate?.tableView?(self, draggingGestureChanged: gesture)
+					self.previousGestureVerticalPosition = location.y
 				}
 			}
 			
@@ -217,6 +229,9 @@ extension LPRTableView {
 		}
 		// Dropped.
 		else if gesture.state == .ended {
+
+			// Remove previously cached Gesture location
+			self.previousGestureVerticalPosition = nil
 			
 			// Remove scrolling CADisplayLink.
 			scrollDisplayLink?.invalidate()
@@ -256,6 +271,7 @@ extension LPRTableView {
 		}
 		else if gesture.state == .cancelled || gesture.state == .failed {
 			self.hapticFeedbackFinalize()
+			self.previousGestureVerticalPosition = nil
 		}
 	}
 	
@@ -315,15 +331,25 @@ extension LPRTableView {
 						contentOffset = newOffset
 						
 						if let draggingView = draggingView {
-							if (location.y >= 0) && (location.y <= (contentSize.height + 50.0)) {
-								draggingView.center = CGPoint(x: center.x, y: location.y)
-							}
+                            draggingView.center = CGPoint(x: center.x, y: getDragginViewsNewYCenter(draggingView, with: location))
 						}
 						
 						updateCurrentLocation(gesture)
 				}			
 		}
 	}
+    
+    fileprivate func getDragginViewsNewYCenter(_ draggingView: UIView, with location: CGPoint) -> CGFloat {
+        let cellCenter = draggingView.frame.height / 2
+        let bottomBound = contentSize.height - cellCenter
+        
+        if location.y < cellCenter {
+            return cellCenter
+        } else if location.y > bottomBound {
+            return bottomBound
+        }
+        return location.y
+    }
 	
 }
 
@@ -401,6 +427,10 @@ open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	/** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
 	open func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath) {
+		// Empty implementation, just to simplify overriding (and to show up in code completion).
+	}
+
+	open func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer) {
 		// Empty implementation, just to simplify overriding (and to show up in code completion).
 	}
 	
