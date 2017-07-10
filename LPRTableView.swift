@@ -228,7 +228,7 @@ extension LPRTableView {
 			}
 		}
 		// Dropped.
-		else if gesture.state == .ended {
+		else if (gesture.state == .ended) || (gesture.state == .cancelled) || (gesture.state == .failed) {
 
 			// Remove previously cached Gesture location
 			self.previousGestureVerticalPosition = nil
@@ -268,10 +268,6 @@ extension LPRTableView {
 					self.hapticFeedbackSelectionChanged()
 					self.hapticFeedbackFinalize()
 				})
-		}
-		else if gesture.state == .cancelled || gesture.state == .failed {
-			self.hapticFeedbackFinalize()
-			self.previousGestureVerticalPosition = nil
 		}
 	}
 	
