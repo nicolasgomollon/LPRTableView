@@ -30,7 +30,7 @@ class MasterViewController: LPRTableViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
-	func insertNewObject(_ sender: AnyObject) {
+	@objc func insertNewObject(_ sender: AnyObject) {
 		objects.insert(Date(), at: 0)
 		let indexPath = IndexPath(row: 0, section: 0)
 		tableView.insertRows(at: [indexPath], with: .automatic)
