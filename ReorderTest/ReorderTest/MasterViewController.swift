@@ -23,6 +23,10 @@ class MasterViewController: LPRTableViewController {
 		// Do any additional setup after loading the view, typically from a nib.
 		navigationItem.leftBarButtonItem = self.editButtonItem
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(MasterViewController.insertNewObject(_:)))
+		
+		if #available(iOS 11.0, *) {
+			navigationController?.navigationBar.prefersLargeTitles = true
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
