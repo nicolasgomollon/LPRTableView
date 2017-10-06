@@ -204,16 +204,23 @@ extension LPRTableView {
 				}
 			}
 			
+			let inset: UIEdgeInsets
+			if #available(iOS 11.0, *) {
+				inset = adjustedContentInset
+			} else {
+				inset = contentInset
+			}
+			
 			var rect = bounds
 			// Adjust rect for content inset, as we will use it below for calculating scroll zones.
-			rect.size.height -= contentInset.top
+			rect.size.height -= inset.top
 			
 			updateCurrentLocation(gesture)
 			
 			// Tell us if we should scroll, and in which direction.
 			let scrollZoneHeight = rect.size.height / 6.0
-			let bottomScrollBeginning = contentOffset.y + contentInset.top + rect.size.height - scrollZoneHeight
-			let topScrollBeginning = contentOffset.y + contentInset.top  + scrollZoneHeight
+			let bottomScrollBeginning = contentOffset.y + inset.top + rect.size.height - scrollZoneHeight
+			let topScrollBeginning = contentOffset.y + inset.top  + scrollZoneHeight
 			
 			// We're in the bottom zone.
 			if location.y >= bottomScrollBeginning {
@@ -312,12 +319,19 @@ extension LPRTableView {
 		let yOffset = Double(contentOffset.y) + scrollRate * 10.0
 		var newOffset = CGPoint(x: contentOffset.x, y: CGFloat(yOffset))
 		
-		if newOffset.y < -contentInset.top {
-			newOffset.y = -contentInset.top
-		} else if (contentSize.height + contentInset.bottom) < frame.size.height {
+		let inset: UIEdgeInsets
+		if #available(iOS 11.0, *) {
+			inset = adjustedContentInset
+		} else {
+			inset = contentInset
+		}
+		
+		if newOffset.y < -inset.top {
+			newOffset.y = -inset.top
+		} else if (contentSize.height + inset.bottom) < frame.size.height {
 			newOffset = contentOffset
-		} else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
-			newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
+		} else if newOffset.y > ((contentSize.height + inset.bottom) - frame.size.height) {
+			newOffset.y = (contentSize.height + inset.bottom) - frame.size.height
 		}
 		
 		contentOffset = newOffset
