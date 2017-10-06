@@ -273,66 +273,60 @@ extension LPRTableView {
 	
 	fileprivate func updateCurrentLocation(_ gesture: UILongPressGestureRecognizer) {
 		let location = gesture.location(in: self)
-		if var indexPath = indexPathForRow(at: location) {
+		guard var indexPath = indexPathForRow(at: location) else { return }
+		
+		if let iIndexPath = initialIndexPath,
+			let ip = delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: iIndexPath, toProposedIndexPath: indexPath) {
+				indexPath = ip
+		}
+		
+		guard let clIndexPath = currentLocationIndexPath else { return }
+		let oldHeight = rectForRow(at: clIndexPath).size.height
+		let newHeight = rectForRow(at: indexPath).size.height
+		
+		if let cell = cellForRow(at: clIndexPath) {
+			cell.setSelected(false, animated: false)
+			cell.setHighlighted(false, animated: false)
+			cell.isHidden = true
+		}
+		
+		if ((indexPath != clIndexPath) &&
+			(gesture.location(in: cellForRow(at: indexPath)).y > (newHeight - oldHeight))) &&
+			canMoveRowAt(indexPath: indexPath) {
+				beginUpdates()
+				moveRow(at: clIndexPath, to: indexPath)
+				dataSource?.tableView?(self, moveRowAt: clIndexPath, to: indexPath)
+				currentLocationIndexPath = indexPath
+				endUpdates()
 			
-			if let iIndexPath = initialIndexPath {
-				if let ip = delegate?.tableView?(self, targetIndexPathForMoveFromRowAt: iIndexPath, toProposedIndexPath: indexPath) {
-					indexPath = ip
-				}
-			}
-			
-			if let clIndexPath = currentLocationIndexPath {
-				let oldHeight = rectForRow(at: clIndexPath).size.height
-				let newHeight = rectForRow(at: indexPath).size.height
-				
-				if let cell = cellForRow(at: clIndexPath) {
-					cell.setSelected(false, animated: false)
-					cell.setHighlighted(false, animated: false)
-					cell.isHidden = true
-				}
-				
-				if ((indexPath != clIndexPath) &&
-					(gesture.location(in: cellForRow(at: indexPath)).y > (newHeight - oldHeight))) &&
-					canMoveRowAt(indexPath: indexPath) {
-						beginUpdates()
-						moveRow(at: clIndexPath, to: indexPath)
-						dataSource?.tableView?(self, moveRowAt: clIndexPath, to: indexPath)
-						currentLocationIndexPath = indexPath
-						endUpdates()
-						
-						self.hapticFeedbackSelectionChanged()
-				}
-			}
+				self.hapticFeedbackSelectionChanged()
 		}
 	}
 	
 	@objc internal func _scrollTableWithCell(_ sender: CADisplayLink) {
-		if let gesture = longPressGestureRecognizer {
-			
-			let location = gesture.location(in: self)
-			
-				if !(location.y.isNaN || location.x.isNaN) { // Explicitly check for out-of-bound touch.
+		guard let gesture = longPressGestureRecognizer else { return }
 		
-						let yOffset = Double(contentOffset.y) + scrollRate * 10.0
-						var newOffset = CGPoint(x: contentOffset.x, y: CGFloat(yOffset))
-						
-						if newOffset.y < -contentInset.top {
-							newOffset.y = -contentInset.top
-						} else if (contentSize.height + contentInset.bottom) < frame.size.height {
-							newOffset = contentOffset
-						} else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
-							newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
-						}
-						
-						contentOffset = newOffset
-						
-						if let draggingView = draggingView {
-							draggingView.center = CGPoint(x: center.x, y: newYCenter(for: draggingView, with: location))
-						}
-						
-						updateCurrentLocation(gesture)
-				}			
+		let location = gesture.location(in: self)
+		guard !(location.y.isNaN || location.x.isNaN) else { return } // Explicitly check for out-of-bound touch.
+		
+		let yOffset = Double(contentOffset.y) + scrollRate * 10.0
+		var newOffset = CGPoint(x: contentOffset.x, y: CGFloat(yOffset))
+		
+		if newOffset.y < -contentInset.top {
+			newOffset.y = -contentInset.top
+		} else if (contentSize.height + contentInset.bottom) < frame.size.height {
+			newOffset = contentOffset
+		} else if newOffset.y > ((contentSize.height + contentInset.bottom) - frame.size.height) {
+			newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
 		}
+		
+		contentOffset = newOffset
+		
+		if let draggingView = draggingView {
+			draggingView.center = CGPoint(x: center.x, y: newYCenter(for: draggingView, with: location))
+		}
+		
+		updateCurrentLocation(gesture)
 	}
 	
 	fileprivate func newYCenter(for draggingView: UIView, with location: CGPoint) -> CGFloat {
@@ -352,27 +346,23 @@ extension LPRTableView {
 extension LPRTableView {
 	
 	fileprivate func hapticFeedbackSetup() {
-		if #available(iOS 10.0, *) {
-			let feedbackGenerator = UISelectionFeedbackGenerator()
-			feedbackGenerator.prepare()
-			
-			self.feedbackGenerator = feedbackGenerator
-		}
+		guard #available(iOS 10.0, *) else { return }
+		let feedbackGenerator = UISelectionFeedbackGenerator()
+		feedbackGenerator.prepare()
+		
+		self.feedbackGenerator = feedbackGenerator
 	}
 	
 	fileprivate func hapticFeedbackSelectionChanged() {
-		if #available(iOS 10.0, *) {
-			if let feedbackGenerator = self.feedbackGenerator as? UISelectionFeedbackGenerator {
-				feedbackGenerator.selectionChanged()
-				feedbackGenerator.prepare()
-			}
-		}
+		guard #available(iOS 10.0, *),
+			let feedbackGenerator = self.feedbackGenerator as? UISelectionFeedbackGenerator else { return }
+		feedbackGenerator.selectionChanged()
+		feedbackGenerator.prepare()
 	}
 	
 	fileprivate func hapticFeedbackFinalize() {
-		if #available(iOS 10.0, *) {
-			self.feedbackGenerator = nil
-		}
+		guard #available(iOS 10.0, *) else { return }
+		self.feedbackGenerator = nil
 	}
 	
 }
