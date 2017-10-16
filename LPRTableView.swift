@@ -90,6 +90,10 @@ open class LPRTableView: UITableView {
 	fileprivate func initialize() {
 		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(LPRTableView._longPress(_:)))
 		addGestureRecognizer(longPressGestureRecognizer)
+		
+		self.estimatedRowHeight = 0
+		self.estimatedSectionHeaderHeight = 0
+		self.estimatedSectionFooterHeight = 0
 	}
 	
 }
