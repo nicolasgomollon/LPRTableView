@@ -388,7 +388,7 @@ extension LPRTableView {
 open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 	
 	/** Returns the long press to reorder table view managed by the controller object. */
-	open var lprTableView: LPRTableView! { return tableView as! LPRTableView }
+	open var lprTableView: LPRTableView! { return (tableView as? LPRTableView)! }
 	
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
