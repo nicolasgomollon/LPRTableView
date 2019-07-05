@@ -77,7 +77,7 @@ open class LPRTableView: UITableView {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override init(frame: CGRect, style: UITableViewStyle) {
+	public override init(frame: CGRect, style: UITableView.Style) {
 		super.init(frame: frame, style: style)
 		initialize()
 	}
@@ -187,7 +187,7 @@ extension LPRTableView {
 					
 					// Enable scrolling for cell.
 					scrollDisplayLink = CADisplayLink(target: self, selector: #selector(LPRTableView._scrollTableWithCell(_:)))
-					scrollDisplayLink?.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
+					scrollDisplayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.default)
 				}
 			}
 		}
@@ -395,7 +395,7 @@ open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
 		initialize()
 	}
 	
-	public override init(style: UITableViewStyle) {
+	public override init(style: UITableView.Style) {
 		super.init(style: style)
 		initialize()
 	}
