@@ -22,11 +22,9 @@ class DetailViewController: UIViewController {
 	
 	func configureView() {
 		// Update the user interface for the detail item.
-		if let detail: AnyObject = detailItem {
-		    if let label = detailDescriptionLabel {
-		        label.text = detail.description
-		    }
-		}
+		guard let detail: AnyObject = detailItem,
+			let label: UILabel = detailDescriptionLabel else { return }
+		label.text = detail.description
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

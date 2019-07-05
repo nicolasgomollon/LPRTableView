@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: LPRTableViewController {
 	
-	var objects = Array<Date>()
+	var objects: Array<Date> = .init()
 	
 	
 	override func awakeFromNib() {
@@ -21,7 +21,7 @@ class MasterViewController: LPRTableViewController {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view, typically from a nib.
-		navigationItem.leftBarButtonItem = self.editButtonItem
+		navigationItem.leftBarButtonItem = editButtonItem
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(MasterViewController.insertNewObject(_:)))
 		
 		if #available(iOS 11.0, *) {
@@ -36,7 +36,7 @@ class MasterViewController: LPRTableViewController {
 	
 	@objc func insertNewObject(_ sender: AnyObject) {
 		objects.insert(Date(), at: 0)
-		let indexPath = IndexPath(row: 0, section: 0)
+		let indexPath: IndexPath = IndexPath(row: 0, section: 0)
 		tableView.insertRows(at: [indexPath], with: .automatic)
 	}
 	
@@ -51,16 +51,16 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
+		let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 		
-		let object = objects[indexPath.row]
+		let object: Date = objects[indexPath.row]
 		cell.textLabel?.text = object.description
 		
 		//
 		// Reset any possible modifications made in `tableView:draggingCell:atIndexPath:`
 		// to avoid reusing the modified cell.
 		//
-//		cell.backgroundColor = .whiteColor()
+//		cell.backgroundColor = .white
 		
 		return cell
 	}
@@ -80,8 +80,8 @@ class MasterViewController: LPRTableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let object = objects[indexPath.row]
-		let detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+		let object: Date = objects[indexPath.row]
+		let detailViewController: DetailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
 		detailViewController.detailItem = object as AnyObject?
 		navigationController?.pushViewController(detailViewController, animated: true)
 	}
@@ -89,12 +89,10 @@ class MasterViewController: LPRTableViewController {
 	// MARK: - Segues
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "showDetail" {
-			if let indexPath = tableView.indexPathForSelectedRow {
-				let object = objects[indexPath.row]
-				(segue.destination as! DetailViewController).detailItem = object as AnyObject?
-			}
-		}
+		guard segue.identifier == "showDetail",
+			let indexPath: IndexPath = tableView.indexPathForSelectedRow else { return }
+		let object: Date = objects[indexPath.row]
+		(segue.destination as! DetailViewController).detailItem = object as AnyObject?
 	}
 	
 	// MARK: - Long Press Reorder
