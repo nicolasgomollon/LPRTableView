@@ -73,7 +73,7 @@ open class LPRTableView: UITableView {
 		}
 	}
 	
-	public convenience init()  {
+	public convenience init() {
 		self.init(frame: .zero)
 	}
 	
