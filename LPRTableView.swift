@@ -89,11 +89,31 @@ open class LPRTableView: UITableView {
 	
 	fileprivate func initialize() {
 		longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(LPRTableView._longPress(_:)))
+		longPressGestureRecognizer.delegate = self
 		addGestureRecognizer(longPressGestureRecognizer)
 		
 		estimatedRowHeight = 0.0
 		estimatedSectionHeaderHeight = 0.0
 		estimatedSectionFooterHeight = 0.0
+	}
+	
+}
+
+extension LPRTableView: UIGestureRecognizerDelegate {
+	
+	open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		let location: CGPoint = gestureRecognizer.location(in: self)
+		let indexPath: IndexPath? = indexPathForRow(at: location)
+		let sections: Int = numberOfSections
+		var rows: Int = 0
+		for i in 0..<sections {
+			rows += numberOfRows(inSection: i)
+		}
+		// Long press gesture should not begin if it was not on a valid row or our table is empty
+		// or the `dataSource.tableView(_:canMoveRowAt:)` doesn't allow moving the row.
+		return (rows > 0)
+			&& (indexPath != nil)
+			&& canMoveRowAt(indexPath: indexPath!)
 	}
 	
 }
@@ -104,30 +124,9 @@ extension LPRTableView {
 		return (dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:canMoveRowAt:))) == false) || (dataSource?.tableView?(self, canMoveRowAt: indexPath) == true)
 	}
 	
-	fileprivate func cancelGesture() {
-		longPressGestureRecognizer.isEnabled = false
-		longPressGestureRecognizer.isEnabled = true
-	}
-	
 	@objc internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
 		let location: CGPoint = gesture.location(in: self)
 		let indexPath: IndexPath? = indexPathForRow(at: location)
-		
-		let sections: Int = numberOfSections
-		var rows: Int = 0
-		for i in 0..<sections {
-			rows += numberOfRows(inSection: i)
-		}
-		
-		// Get out of here if the long press was not on a valid row or our table is empty
-		// or the dataSource tableView:canMoveRowAtIndexPath: doesn't allow moving the row.
-		if (rows == 0) ||
-			((gesture.state == .began) && (indexPath == nil)) ||
-			((gesture.state == .ended) && (currentLocationIndexPath == nil)) ||
-			((gesture.state == .began) && !canMoveRowAt(indexPath: indexPath!)) {
-				cancelGesture()
-				return
-		}
 		
 		switch gesture.state {
 		case .began: // Started
@@ -228,7 +227,7 @@ extension LPRTableView {
 			} else {
 				scrollRate = 0.0
 			}
-		case .ended, // Dropped
+		case .ended where currentLocationIndexPath != nil, // Dropped
 			 .cancelled,
 			 .failed:
 			// Remove previously cached Gesture location
