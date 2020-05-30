@@ -102,6 +102,7 @@ open class LPRTableView: UITableView {
 extension LPRTableView: UIGestureRecognizerDelegate {
 	
 	open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		guard gestureRecognizer == longPressGestureRecognizer else { return true }
 		let location: CGPoint = gestureRecognizer.location(in: self)
 		let indexPath: IndexPath? = indexPathForRow(at: location)
 		let sections: Int = numberOfSections
