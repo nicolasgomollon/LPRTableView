@@ -239,6 +239,13 @@ extension LPRTableView {
 			scrollDisplayLink = nil
 			scrollRate = 0.0
 			
+			//
+			// For use only with Xcode UI Testing:
+			// Set launch argument `"-LPRTableViewUITestingScreenshots", "1"` to disable dropping a cell,
+			// to facilitate taking a screenshot with a hovering cell.
+			//
+			guard !UserDefaults.standard.bool(forKey: "LPRTableViewUITestingScreenshots") else { break }
+			
 			// Animate the drag view to the newly hovered cell.
 			UIView.animate(withDuration: 0.3, animations: {
 				guard let draggingView: UIView = self.draggingView,
