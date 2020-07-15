@@ -6,7 +6,6 @@
 //  Swift adaptation Copyright (c) 2014 Nicolas Gomollon. All rights reserved.
 //
 
-import Foundation
 import QuartzCore
 import UIKit
 
