@@ -2,7 +2,7 @@
 
 LPRTableView (LPR is short for “Long Press to Reorder”) is a drop-in replacement for UITableView and UITableViewController that supports reordering by simply long-pressing on a cell. LPRTableView is written completely in Swift (adapted from Objective-C, original code by: [bvogelzang/BVReorderTableView](https://github.com/bvogelzang/BVReorderTableView)).
 
-<img alt="Sample Screenshot" width="320" height="568" src="http://f.cl.ly/items/0l0L3X0a2Y3B3J390m3J/SampleScreenshot.png" />
+<img alt="Sample Screenshot" width="390" height="844" src="SampleScreenshot.png" />
 
 
 ## Usage
@@ -14,10 +14,7 @@ It’s **important** that you update your data source after the user reorders a 
 ```swift
 override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 	// Modify this code as needed to support more advanced reordering, such as between sections.
-	let source = objects[sourceIndexPath.row]
-	let destination = objects[destinationIndexPath.row]
-	objects[sourceIndexPath.row] = destination
-	objects[destinationIndexPath.row] = source
+	objects.insert(objects.remove(at: sourceIndexPath.row), at: destinationIndexPath.row)
 }
 ```
 
@@ -35,6 +32,9 @@ Long-press reordering can be disabled entirely by setting a `Bool` to `lprTableV
 There are also a few _optional_ delegate methods you may implement after setting `lprTableView.longPressReorderDelegate`:
 
 ```swift
+// Asks the delegate whether a given row can be moved to another location in the table view based on the gesture location.
+func tableView(_ tableView: UITableView, shouldMoveRowAtIndexPath indexPath: IndexPath, forDraggingGesture gesture: UILongPressGestureRecognizer) -> Bool
+
 // Provides a chance to modify the cell (visually) before dragging occurs.
 //    NOTE: Any changes made here should be reverted in `tableView:cellForRowAtIndexPath:`
 //          to avoid accidentally reusing the modifications.
@@ -66,7 +66,7 @@ override func registerClasses() {
 
 ## Requirements
 
-Since LPRTableView is written in Swift 3, it requires Xcode 8 or above and works on iOS 8 and above.
+Since LPRTableView is written in Swift 5, it requires Xcode 10.2 or above and works on iOS 12 and above.
 
 
 ## License
