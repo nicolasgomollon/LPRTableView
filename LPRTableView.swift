@@ -9,27 +9,30 @@
 import QuartzCore
 import UIKit
 
-/** The delegate of a LPRTableView object can adopt the LPRTableViewDelegate protocol. Optional methods of the protocol allow the delegate to modify a cell visually before dragging occurs, or to be notified when a cell is about to be dragged or about to be dropped. */
+/// The delegate of a `LPRTableView` object can adopt the `LPRTableViewDelegate` protocol.
+/// Optional methods of the protocol allow the delegate to modify a cell visually before dragging occurs, or to be notified when a cell is about to be dragged or about to be dropped.
 @objc
 public protocol LPRTableViewDelegate: NSObjectProtocol {
     
-    /** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. */
+    /// Provides the delegate a chance to modify the cell visually before dragging occurs.
+    ///
+    /// Defaults to using the cell as-is if not implemented.
     @objc optional func tableView(_ tableView: UITableView, draggingCell cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell
     
-    /** Called within an animation block when the dragging view is about to show. */
+    /// Called within an animation block when the dragging view is about to show.
     @objc optional func tableView(_ tableView: UITableView, showDraggingView view: UIView, at indexPath: IndexPath)
     
-    /** Called within an animation block when the dragging view is about to hide. */
+    /// Called within an animation block when the dragging view is about to hide.
     @objc optional func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath)
     
-    /** Called when the dragging gesture's vertical location changes. */
+    /// Called when the dragging gesture's vertical location changes.
     @objc optional func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer)
     
 }
 
 open class LPRTableView: UITableView {
     
-    /** The object that acts as the delegate of the receiving table view. */
+    /// The object that acts as the delegate of the receiving table view.
     weak open var longPressReorderDelegate: LPRTableViewDelegate?
     
     fileprivate var longPressGestureRecognizer: UILongPressGestureRecognizer!
@@ -48,7 +51,7 @@ open class LPRTableView: UITableView {
     
     fileprivate var previousGestureVerticalPosition: CGFloat?
     
-    /** A Bool property that indicates whether long press to reorder is enabled. */
+    /// A Bool property that indicates whether long press to reorder is enabled.
     open var longPressReorderEnabled: Bool {
         get {
             return longPressGestureRecognizer.isEnabled
@@ -58,11 +61,9 @@ open class LPRTableView: UITableView {
         }
     }
     
-    /**
-    The minimum period a finger must press on a cell for the reordering to begin.
-    
-    The time interval is in seconds. The default duration is is 0.5 seconds.
-    */
+    /// The minimum period a finger must press on a cell for the reordering to begin.
+    ///
+    /// The time interval is in seconds. The default duration is `0.5` seconds.
     open var minimumPressDuration: TimeInterval {
         get {
             return longPressGestureRecognizer.minimumPressDuration
@@ -379,7 +380,7 @@ extension LPRTableView {
 
 open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
     
-    /** Returns the long press to reorder table view managed by the controller object. */
+    /// Returns the long press to reorder table view managed by the controller object.
     open var lprTableView: LPRTableView { return tableView as! LPRTableView }
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -405,28 +406,36 @@ open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
         lprTableView.longPressReorderDelegate = self
     }
     
-    /** Override this method to register custom UITableViewCell subclass(es). DO NOT call `super` within this method. */
+    /// Override this method to register custom UITableViewCell subclass(es). DO NOT call `super` within this method.
     open func registerClasses() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
-    /** Provides the delegate a chance to modify the cell visually before dragging occurs. Defaults to using the cell as-is if not implemented. The default implementation of this method is empty—no need to call `super`. */
+    /// Provides the delegate a chance to modify the cell visually before dragging occurs.
+    ///
+    /// Defaults to using the cell as-is if not implemented. The default implementation of this method is empty—no need to call `super`.
     open func tableView(_ tableView: UITableView, draggingCell cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell {
         // Empty implementation, just to simplify overriding (and to show up in code completion).
         return cell
     }
     
-    /** Called within an animation block when the dragging view is about to show. The default implementation of this method is empty—no need to call `super`. */
+    /// Called within an animation block when the dragging view is about to show.
+    ///
+    /// The default implementation of this method is empty—no need to call `super`.
     open func tableView(_ tableView: UITableView, showDraggingView view: UIView, at indexPath: IndexPath) {
         // Empty implementation, just to simplify overriding (and to show up in code completion).
     }
     
-    /** Called within an animation block when the dragging view is about to hide. The default implementation of this method is empty—no need to call `super`. */
+    /// Called within an animation block when the dragging view is about to hide.
+    ///
+    /// The default implementation of this method is empty—no need to call `super`.
     open func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath) {
         // Empty implementation, just to simplify overriding (and to show up in code completion).
     }
     
-    /** Called when the dragging gesture's vertical location changes. The default implementation of this method is empty—no need to call `super`. */
+    /// Called when the dragging gesture's vertical location changes.
+    ///
+    /// The default implementation of this method is empty—no need to call `super`.
     open func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer) {
         // Empty implementation, just to simplify overriding (and to show up in code completion).
     }
