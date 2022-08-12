@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0C225B28A5E311001DB94B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA0C225928A5E311001DB94B /* LaunchScreen.storyboard */; };
 		DADF8E5A195139F90083BD36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF8E59195139F90083BD36 /* AppDelegate.swift */; };
 		DADF8E5C195139F90083BD36 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF8E5B195139F90083BD36 /* MasterViewController.swift */; };
 		DADF8E5E195139F90083BD36 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF8E5D195139F90083BD36 /* DetailViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA0C225A28A5E311001DB94B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DADF8E54195139F90083BD36 /* ReorderTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReorderTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DADF8E58195139F90083BD36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF8E59195139F90083BD36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				DADF8E5B195139F90083BD36 /* MasterViewController.swift */,
 				DADF8E5D195139F90083BD36 /* DetailViewController.swift */,
 				DADF8E5F195139F90083BD36 /* Main.storyboard */,
+				DA0C225928A5E311001DB94B /* LaunchScreen.storyboard */,
 				DADF8E62195139F90083BD36 /* Images.xcassets */,
 				DADF8E57195139F90083BD36 /* Supporting Files */,
 			);
@@ -103,7 +106,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Techno-Magic";
 				TargetAttributes = {
 					DADF8E53195139F90083BD36 = {
@@ -135,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0C225B28A5E311001DB94B /* LaunchScreen.storyboard in Resources */,
 				DADF8E61195139F90083BD36 /* Main.storyboard in Resources */,
 				DADF8E63195139F90083BD36 /* Images.xcassets in Resources */,
 			);
@@ -157,6 +161,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		DA0C225928A5E311001DB94B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA0C225A28A5E311001DB94B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		DADF8E5F195139F90083BD36 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -191,6 +203,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -215,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -246,6 +259,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -263,7 +277,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -275,7 +289,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ReorderTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasgomollon.${PRODUCT_NAME:rfc1034identifier}";
@@ -288,7 +301,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = ReorderTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nicolasgomollon.${PRODUCT_NAME:rfc1034identifier}";

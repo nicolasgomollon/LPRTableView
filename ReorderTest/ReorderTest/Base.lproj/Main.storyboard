@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,6 +12,7 @@
             <objects>
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -34,17 +33,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="2pz-XF-uhl" style="IBUITableViewCellStyleDefault" id="m0d-ak-lc9">
-                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2pz-XF-uhl">
-                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="326.5" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" systemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </label>
                                     </subviews>
@@ -79,11 +78,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lei-5M-9Gs">
-                                <rect key="frame" x="20" y="232" width="440" height="17"/>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lei-5M-9Gs">
+                                <rect key="frame" x="20" y="321.5" width="335" height="24"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -101,7 +100,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1208" y="64"/>
+            <point key="canvasLocation" x="1207.2" y="63.418290854572717"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
