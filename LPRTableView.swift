@@ -21,7 +21,7 @@ public protocol LPRTableViewDelegate: NSObjectProtocol {
 	
 	/** Called within an animation block when the dragging view is about to hide. */
 	@objc optional func tableView(_ tableView: UITableView, hideDraggingView view: UIView, at indexPath: IndexPath)
-
+	
 	/** Called when the dragging gesture's vertical location changes. */
 	@objc optional func tableView(_ tableView: UITableView, draggingGestureChanged gesture: UILongPressGestureRecognizer)
 	
@@ -63,7 +63,7 @@ open class LPRTableView: UITableView {
 	
 	The time interval is in seconds. The default duration is is 0.5 seconds.
 	*/
-	open var minimumPressDuration: CFTimeInterval {
+	open var minimumPressDuration: TimeInterval {
 		get {
 			return longPressGestureRecognizer.minimumPressDuration
 		}
@@ -216,7 +216,7 @@ extension LPRTableView {
 			// Tell us if we should scroll, and in which direction.
 			let scrollZoneHeight: CGFloat = rect.size.height / 6.0
 			let bottomScrollBeginning: CGFloat = contentOffset.y + inset.top + rect.size.height - scrollZoneHeight
-			let topScrollBeginning: CGFloat = contentOffset.y + inset.top  + scrollZoneHeight
+			let topScrollBeginning: CGFloat = contentOffset.y + inset.top + scrollZoneHeight
 			
 			if location.y >= bottomScrollBeginning {
 				// We're in the bottom zone.
