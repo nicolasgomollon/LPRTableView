@@ -208,8 +208,6 @@ extension LPRTableView {
             // Adjust rect for content inset, as we will use it below for calculating scroll zones.
             rect.size.height -= inset.top
             
-            updateCurrentLocation(gesture)
-            
             // Tell us if we should scroll, and in which direction.
             let scrollZoneHeight: CGFloat = rect.size.height / 6.0
             let bottomScrollBeginning: CGFloat = contentOffset.y + inset.top + rect.size.height - scrollZoneHeight
