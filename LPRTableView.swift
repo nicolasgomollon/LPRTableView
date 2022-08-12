@@ -14,6 +14,11 @@ import UIKit
 @objc
 public protocol LPRTableViewDelegate: NSObjectProtocol {
     
+    /// Asks the delegate whether a given row can be moved to another location in the table view based on the gesture location.
+    ///
+    /// The default is `true`.
+    @objc optional func tableView(_ tableView: UITableView, shouldMoveRowAtIndexPath indexPath: IndexPath, forDraggingGesture gesture: UILongPressGestureRecognizer) -> Bool
+    
     /// Provides the delegate a chance to modify the cell visually before dragging occurs.
     ///
     /// Defaults to using the cell as-is if not implemented.
@@ -107,6 +112,7 @@ extension LPRTableView: UIGestureRecognizerDelegate {
         return (rows > 0)
             && (indexPath != nil)
             && canMoveRowAt(indexPath: indexPath!)
+            && shouldMoveRowAt(indexPath: indexPath!, forDraggingGesture: longPressGestureRecognizer)
     }
     
 }
@@ -115,6 +121,10 @@ extension LPRTableView {
     
     fileprivate func canMoveRowAt(indexPath: IndexPath) -> Bool {
         return dataSource?.tableView?(self, canMoveRowAt: indexPath) ?? true
+    }
+    
+    fileprivate func shouldMoveRowAt(indexPath: IndexPath, forDraggingGesture gesture: UILongPressGestureRecognizer) -> Bool {
+        return longPressReorderDelegate?.tableView?(self, shouldMoveRowAtIndexPath: indexPath, forDraggingGesture: longPressGestureRecognizer) ?? true
     }
     
     @objc internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
@@ -408,6 +418,13 @@ open class LPRTableViewController: UITableViewController, LPRTableViewDelegate {
     /// Override this method to register custom UITableViewCell subclass(es). DO NOT call `super` within this method.
     open func registerClasses() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    /// Asks the delegate whether a given row can be moved to another location in the table view based on the gesture location.
+    ///
+    /// The default is `true`. The default implementation of this method is empty—no need to call `super`.
+    open func tableView(_ tableView: UITableView, shouldMoveRowAtIndexPath indexPath: IndexPath, forDraggingGesture gesture: UILongPressGestureRecognizer) -> Bool {
+        return true
     }
     
     /// Provides the delegate a chance to modify the cell visually before dragging occurs.
