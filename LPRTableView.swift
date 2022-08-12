@@ -104,11 +104,7 @@ extension LPRTableView: UIGestureRecognizerDelegate {
         guard gestureRecognizer == longPressGestureRecognizer else { return true }
         let location: CGPoint = gestureRecognizer.location(in: self)
         let indexPath: IndexPath? = indexPathForRow(at: location)
-        let sections: Int = numberOfSections
-        var rows: Int = 0
-        for i in 0..<sections {
-            rows += numberOfRows(inSection: i)
-        }
+        let rows: Int = (0..<numberOfSections).reduce(0, { $0 + numberOfRows(inSection: $1) })
         // Long press gesture should not begin if it was not on a valid row or our table is empty
         // or the `dataSource.tableView(_:canMoveRowAt:)` doesn't allow moving the row.
         return (rows > 0)
@@ -121,7 +117,8 @@ extension LPRTableView: UIGestureRecognizerDelegate {
 extension LPRTableView {
     
     fileprivate func canMoveRowAt(indexPath: IndexPath) -> Bool {
-        return (dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:canMoveRowAt:))) == false) || (dataSource?.tableView?(self, canMoveRowAt: indexPath) == true)
+        return (dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:canMoveRowAt:))) == false)
+            || (dataSource?.tableView?(self, canMoveRowAt: indexPath) == true)
     }
     
     @objc internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
