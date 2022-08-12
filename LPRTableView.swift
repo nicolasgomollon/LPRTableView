@@ -129,6 +129,7 @@ extension LPRTableView {
             
             guard let indexPath: IndexPath = indexPath,
                   var cell: UITableViewCell = cellForRow(at: indexPath) else { break }
+            endEditing(true)
             cell.setSelected(false, animated: false)
             cell.setHighlighted(false, animated: false)
             
