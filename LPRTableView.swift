@@ -114,8 +114,7 @@ extension LPRTableView: UIGestureRecognizerDelegate {
 extension LPRTableView {
     
     fileprivate func canMoveRowAt(indexPath: IndexPath) -> Bool {
-        return (dataSource?.responds(to: #selector(UITableViewDataSource.tableView(_:canMoveRowAt:))) == false)
-            || (dataSource?.tableView?(self, canMoveRowAt: indexPath) == true)
+        return dataSource?.tableView?(self, canMoveRowAt: indexPath) ?? true
     }
     
     @objc internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
