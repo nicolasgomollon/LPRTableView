@@ -254,7 +254,12 @@ extension LPRTableView {
                 self.draggingView?.removeFromSuperview()
                 
                 // Reload the rows that were affected just to be safe.
-                if let visibleRows: [IndexPath] = self.indexPathsForVisibleRows {
+                var visibleRows: [IndexPath] = self.indexPathsForVisibleRows ?? []
+                if let indexPath: IndexPath = indexPath,
+                   !visibleRows.contains(indexPath) {
+                    visibleRows.append(indexPath)
+                }
+                if !visibleRows.isEmpty {
                     self.reloadRows(at: visibleRows, with: .none)
                 }
                 
@@ -282,10 +287,15 @@ extension LPRTableView {
         let oldHeight: CGFloat = rectForRow(at: clIndexPath).size.height
         let newHeight: CGFloat = rectForRow(at: indexPath).size.height
         
-        if let cell: UITableViewCell = cellForRow(at: clIndexPath) {
-            cell.setSelected(false, animated: false)
-            cell.setHighlighted(false, animated: false)
-            cell.isHidden = true
+        switch gesture.state {
+        case .changed:
+            if let cell: UITableViewCell = cellForRow(at: clIndexPath) {
+                cell.setSelected(false, animated: false)
+                cell.setHighlighted(false, animated: false)
+                cell.isHidden = true
+            }
+        default:
+            break
         }
         
         guard indexPath != clIndexPath,
