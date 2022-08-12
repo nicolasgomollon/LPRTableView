@@ -9,38 +9,36 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-	
-	@IBOutlet var detailDescriptionLabel: UILabel?
-	
-	
-	var detailItem: AnyObject? {
-		didSet {
-		    // Update the view.
-		    configureView()
-		}
-	}
-	
-	func configureView() {
-		// Update the user interface for the detail item.
-		guard let detail: AnyObject = detailItem,
-			let label: UILabel = detailDescriptionLabel else { return }
-		label.text = detail.description
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
-		configureView()
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
+    
+    @IBOutlet var detailDescriptionLabel: UILabel?
+    
+    var detailItem: AnyObject? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func configureView() {
+        // Update the user interface for the detail item.
+        guard let detail: AnyObject = detailItem,
+              let label: UILabel = detailDescriptionLabel else { return }
+        label.text = detail.description
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        configureView()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 }
-

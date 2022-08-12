@@ -47,6 +47,7 @@
 				DADF8E55195139F90083BD36 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		DADF8E55195139F90083BD36 /* Products */ = {
 			isa = PBXGroup;
