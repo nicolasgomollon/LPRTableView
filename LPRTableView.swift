@@ -149,13 +149,8 @@ extension LPRTableView {
                     cell = draggingCell
                 }
                 
-                // Make an image from the pressed table view cell.
-                UIGraphicsBeginImageContextWithOptions(cell.bounds.size, false, 0.0)
-                cell.layer.render(in: UIGraphicsGetCurrentContext()!)
-                let cellImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                
-                draggingView = UIImageView(image: cellImage)
+                // Take a snapshot of the pressed table view cell.
+                draggingView = cell.snapshotView(afterScreenUpdates: false)
                 
                 if let draggingView: UIView = draggingView {
                     addSubview(draggingView)

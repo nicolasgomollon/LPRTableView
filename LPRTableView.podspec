@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "LPRTableView"
-  spec.version = "1.0.1"
+  spec.version = "1.0.2"
   spec.summary = "A drop-in replacement for UITableView and UITableViewController that supports long-press reordering of cells."
   spec.homepage = "https://github.com/nicolasgomollon/LPRTableView"
   spec.platform = :ios, "12.0"
