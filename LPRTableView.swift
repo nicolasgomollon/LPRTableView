@@ -261,6 +261,10 @@ extension LPRTableView {
                    !visibleRows.contains(indexPath) {
                     visibleRows.append(indexPath)
                 }
+                if let currentLocationIndexPath: IndexPath = self.currentLocationIndexPath,
+                   !visibleRows.contains(currentLocationIndexPath) {
+                    visibleRows.append(currentLocationIndexPath)
+                }
                 if !visibleRows.isEmpty {
                     self.reloadRows(at: visibleRows, with: .none)
                 }
